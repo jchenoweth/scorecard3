@@ -1,0 +1,11 @@
+.playerComponent {
+    height:80px; 
+}
+
+.playerName {
+    text-align: center;
+}
+
+.playerButton{
+    height:15px; 
+}

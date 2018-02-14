@@ -1,0 +1,20 @@
+.playerNameWidth {
+    width: 50px
+}
+
+mat-header-cell {
+    width: 70px;
+    font-size: 1em;
+    text-align: center;
+}
+
+mat-cell {
+  font-size: 1.2em;
+  text-align: center;
+}
+
+.heading {
+  min-width: 250px;
+}
+
+

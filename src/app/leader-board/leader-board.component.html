@@ -1,0 +1,37 @@
+<mat-card fxLayout="column">
+  <app-heading headingTitle='Leaderboard'></app-heading>
+
+  <mat-card-content>
+    <div fxLayout="column" fxLayoutAlign="space-between center" fxFlex>
+      <div class="example-container mat-elevation-z8">
+
+        <mat-table #table [dataSource]= "leaderBoardDataSource">
+
+          <ng-container matColumnDef="player" >
+            <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.playerName}} </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="front">
+            <mat-header-cell *matHeaderCellDef> Front </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.playerTotalFrontScore}} </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="back" >
+            <mat-header-cell *matHeaderCellDef> Back </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.playerTotalBackScore}} </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="total" >
+            <mat-header-cell *matHeaderCellDef> Total </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.playerTotalScore}} </mat-cell>
+          </ng-container>
+
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
+        </mat-table>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>

@@ -1,0 +1,29 @@
+<mat-card>
+  <app-heading headingTitle='Course Maint'></app-heading>
+  <form #form="ngForm">
+    <mat-input-container class="example-full-width" color="accent">
+      <input
+        type="text"
+        id="courseName"
+        name="courseName"
+        maxlength="15"
+        [(ngModel)]="courseName"
+        #courseInput
+        matInput
+        placeholder="Course Name"
+      >
+    </mat-input-container>
+    <br>
+    <div *ngFor="let parForHole of holePars; let i = index">
+      <button
+        class="parButton"
+        (click)="onParClicked()"
+        color="accent"
+        fxFlexFill
+        mat-raised-button>
+          {{'Hole: '}}{{i+1}}{{' Par: '}}{{parForHole}}
+      </button>
+      <br>
+    </div>
+  </form>
+</mat-card>

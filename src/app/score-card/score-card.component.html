@@ -1,0 +1,26 @@
+<div
+    fxLayout="column"
+    fxLayoutAlign="center">
+
+    <app-pick-hole
+      [currentHole]="currentHole"
+      (holeChanged)="updateCurrentHole($event)">
+    </app-pick-hole>
+
+    <app-pick-player
+      [currentPlayer]="currentPlayer"
+      (onPrevPlayer)="prevPlayer()"
+      (onNextPlayer)="nextPlayer()">
+    </app-pick-player>
+
+    <app-enter-score
+      [currentPlayer]="currentPlayer"
+      [currentHole]="currentHole"
+      [currentScore]="currentScore"
+      (incScore)="incrementScore($event)"
+      (decScore)="decrementScore($event)">
+    </app-enter-score>
+
+    <app-total-score [totScore]="currentTotScore">
+    </app-total-score>
+</div>

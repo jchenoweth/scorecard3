@@ -1,0 +1,80 @@
+<mat-card fxLayout="column" >
+  <app-heading headingTitle='Player Maint'></app-heading>
+
+  <div fxLayout="row" fxLayoutAlign="center center">
+    <form #form="ngForm">
+      <mat-input-container  color="accent">
+        <input
+          ngModel
+          id="player"
+          name="player"
+          type="text"
+          maxlength="5"
+          size="2"
+          matInput
+          #playerInput
+          value="">
+        <mat-hint>Max Length:5</mat-hint>
+      </mat-input-container>
+    </form>
+  </div>
+  <br>
+  <br>
+
+  <div fxLayout="row" fxLayoutAlign="center" >
+    <button
+      *ngIf="!editMode"
+      (click)="onAdd(playerInput.value, playerInput)"
+      [disabled]="!playerInput.value"
+      fxFlex="10"
+      fxFlexOffset="5px"
+      mat-raised-button
+      color="accent">
+      <span style="font-Size:20px">Add</span>
+    </button>
+
+    <button
+      *ngIf="editMode"
+      (click)="onUpdate(playerInput.value, playerInput)"
+      [disabled]="!playerInput.value"
+      fxFlex="10"
+      fxFlexOffset="5px"
+      mat-raised-button
+      color="accent">
+      <span style="font-Size:20px">Update</span>
+    </button>
+
+    <button
+      fxFlex="10"
+      (click)="onCancel(playerInput)"
+      [disabled]="!playerInput.value"
+      fxFlexOffset="5px"
+      mat-raised-button
+      color="accent">
+        <span style="font-Size:20px">Cancel</span>
+    </button>
+
+    <button
+      fxFlex="10"
+      (click)="onDelete(playerInput)"
+      [disabled]="!editMode"
+      fxFlexOffset="5px"
+      mat-raised-button
+      color="accent">
+        <span style="font-Size:20px">Delete</span>
+    </button>
+  </div>
+  <br>
+  <div fxLayout="column" fxLayoutGap="20px" fxLayoutAlign="center">
+    <button
+      (click)="onPlayerClicked(playerInput, plr, i)"
+      color="accent"
+      mat-raised-button
+      *ngFor="let plr of players; let i = index">
+        <span class="playerName">
+          {{plr.name}}
+        </span>
+    </button>
+  </div>
+</mat-card>
+
