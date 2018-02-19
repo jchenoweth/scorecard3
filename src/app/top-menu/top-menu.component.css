@@ -6,3 +6,7 @@
   line-height: 60px;
   color: #fff;
 }
+
+.fill-remaining-space {
+  flex: 1 1 auto;
+}

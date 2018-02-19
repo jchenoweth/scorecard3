@@ -1,4 +1,5 @@
 import { Subject } from 'rxjs/Subject';
+
 export class Player {
   public score: number[];
   private currentScoreDisplayed = 0;

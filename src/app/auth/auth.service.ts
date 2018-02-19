@@ -6,7 +6,6 @@ import { MatSnackBar } from '@angular/material';
 
 import { User } from './user.model';
 import { AuthData } from './auth-data.model';
-// import { TrainingService } from '../training/training.service';
 import { UIService } from '../shared/ui.service';
 
 @Injectable()
@@ -27,10 +26,10 @@ export class AuthService {
         this.authChange.next(true);
         this.router.navigate(['/scorecard']);
       } else {
-        // this.trainingService.cancelSubscriptions();
         this.authChange.next(false);
-        this.router.navigate(['/login']);
+        // this.router.navigate(['/login']);
         this.isAuthenticated = false;
+        this.router.navigate(['/scorecard']);
       }
     });
   }
@@ -41,6 +40,7 @@ export class AuthService {
       .createUserWithEmailAndPassword(authData.email, authData.password)
       .then(result => {
         this.uiService.loadingStateChanged.next(false);
+        this.uiService.showSnackbar('Account Created', null, 5000);
       })
       .catch(error => {
         this.uiService.loadingStateChanged.next(false);
@@ -54,6 +54,8 @@ export class AuthService {
       .signInWithEmailAndPassword(authData.email, authData.password)
       .then(result => {
         this.uiService.loadingStateChanged.next(false);
+        this.uiService.showSnackbar('Login Successful', null, 5000);
+        // this.router.navigate(['/scorecard']);
       })
       .catch(error => {
         this.uiService.loadingStateChanged.next(false);
@@ -63,6 +65,7 @@ export class AuthService {
 
   logout() {
     this.afAuth.auth.signOut();
+    this.uiService.showSnackbar('Logged Out', null, 5000);
   }
 
   isAuth() {

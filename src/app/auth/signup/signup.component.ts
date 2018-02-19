@@ -11,7 +11,7 @@ import { UIService } from '../../shared/ui.service';
   styleUrls: ['./signup.component.css']
 })
 export class SignupComponent implements OnInit, OnDestroy {
-  maxDate;
+  // maxDate;
   isLoading = false;
   private loadingSubs: Subscription;
 
@@ -21,8 +21,8 @@ export class SignupComponent implements OnInit, OnDestroy {
     this.loadingSubs = this.uiService.loadingStateChanged.subscribe(isLoading => {
       this.isLoading = isLoading;
     });
-    this.maxDate = new Date();
-    this.maxDate.setFullYear(this.maxDate.getFullYear() - 18);
+    // this.maxDate = new Date();
+    // this.maxDate.setFullYear(this.maxDate.getFullYear() - 18);
   }
 
   onSubmit(form: NgForm) {
@@ -37,4 +37,6 @@ export class SignupComponent implements OnInit, OnDestroy {
       this.loadingSubs.unsubscribe();
     }
   }
+
+  openTCDialogue() {}
 }

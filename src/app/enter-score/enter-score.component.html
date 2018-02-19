@@ -1,23 +1,17 @@
 <!--Score-->
-<mat-card >
-  <div fxLayout="column" class="scoreComponent">
-    <div
-      fxLayout="row"
-      fxLayoutAlign="space-between center">
-      <button mat-fab (click)="decrementScore()">
-        <i class="material-icons mat-36">remove</i>
-      </button>
-      <button mat-button (click)="scoreClicked()">
-        <h2 class="scoreButton">
-          Score
-        </h2>
-        <h1>
-          <div>{{currentScore}}</div>
-        </h1>
-      </button>
-      <button mat-fab (click)="incrementScore()">
-        <i class="material-icons mat-36">add</i>
-      </button>
-    </div>
+<mat-card fxLayout="column">
+  <div class="scoreComponent" fxLayout="row" fxLayoutWrap fxLayoutAlign="space-between center" >
+    <button mat-fab (click)="decrementScore()">
+      <i class="material-icons mat-48">remove</i>
+    </button>
+
+    <button mat-button (click)="scoreClicked()">
+      <h2 class="scoreButton">Score</h2>
+      <h1 class="score">{{currentScore}}</h1>
+    </button>
+
+    <button mat-fab (click)="incrementScore()">
+      <i class="material-icons mat-48">add</i>
+    </button>
   </div>
 </mat-card>

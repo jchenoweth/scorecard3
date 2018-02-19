@@ -1,7 +1,11 @@
-/* .scoreComponent {
-    height:80px;
-} */
+.scoreComponent {
+  height:80px;
+}
+
+.score {
+  text-align: center;
+}
 
 .scoreButton{
-    height:15px;
+  height:15px;
 }

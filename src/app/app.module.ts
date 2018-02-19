@@ -1,11 +1,12 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HttpModule } from '@angular/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MaterialModule } from './shared/material/material.module';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { environment } from './shared/environment';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
@@ -14,7 +15,6 @@ import 'hammerjs';
 
 import { AppComponent } from './app.component';
 import { TopMenuComponent } from './top-menu/top-menu.component';
-import { CourseService } from './shared/course.service';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { ScoreCardComponent } from './score-card/score-card.component';
 import { PickPlayerComponent } from './pick-player/pick-player.component';
@@ -28,11 +28,14 @@ import { LeaderBoardComponent } from './leader-board/leader-board.component';
 import { HoleDescComponent } from './hole-desc/hole-desc.component';
 import { HeadingComponent } from './heading/heading.component';
 import { SignupComponent } from './auth/signup/signup.component';
+import { LoginComponent } from './auth/login/login.component';
 
+import { CourseService } from './shared/course.service';
 import { UIService } from './shared/ui.service';
 import { GameService } from './shared/game.service';
 import { AuthService } from './auth/auth.service';
-import { ScorechangenotificationService } from './shared/scorechangenotification.service';
+import { ScoreChangeNotificationService } from './shared/scorechangenotification.service';
+import { TermsComponent } from './terms/terms.component';
 
 const routes: Routes = [
   { path: '', component: ScoreCardComponent, pathMatch: 'full' },
@@ -43,6 +46,8 @@ const routes: Routes = [
   { path: 'leaderboard', component: LeaderBoardComponent},
   { path: 'holedesc', component: HoleDescComponent},
   { path: 'signup', component: SignupComponent},
+  { path: 'login', component: LoginComponent},
+  { path: 'logout', component: LoginComponent},
   { path: '**', component: NotFoundComponent }
 ];
 
@@ -62,11 +67,15 @@ const routes: Routes = [
     HoleDescComponent,
     TopMenuComponent,
     HeadingComponent,
-    SignupComponent
+    SignupComponent,
+    LoginComponent,
+    TermsComponent
   ],
   imports: [
     BrowserModule,
+    CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     BrowserAnimationsModule,
     HttpModule,
     RouterModule.forRoot(routes),
@@ -79,7 +88,7 @@ const routes: Routes = [
   providers: [
     GameService,
     UIService,
-    ScorechangenotificationService,
+    ScoreChangeNotificationService,
     AuthService],
   bootstrap: [AppComponent]
 })

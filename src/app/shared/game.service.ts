@@ -30,8 +30,6 @@ export class GameService {
     this.initializeScores();
     this.currentTeam = 1;
     this.setCurrentPlayerNumber(0);
-    this.holeChanged.next(this.getCurrentHole());
-    this.scoreChanged.next(this.getCurrentScore());
     this.currentCourse = new Course('Default');
   }
 
@@ -93,10 +91,12 @@ export class GameService {
 
   setCurrentHole(hole: number) {
     this.currentHole = hole;
+    this.holeChanged.next(this.getCurrentHole());
   }
 
   updatePlayerName(name: string, playerNbr: number) {
     this.players[playerNbr].name = name;
+    this.playerChanged.next(this.getCurrentPlayerNbr());
   }
 
   deletePlayer(playerNbr: number) {
@@ -116,7 +116,6 @@ export class GameService {
     this.setCurrentPlayerNumber(this.players.length);
     this.players[this.getCurrentPlayerNbr()] = new Player(name);
     this.setCurrentPlayer(this.players[this.getCurrentPlayerNbr()]);
-
     this.playerChanged.next(this.getCurrentPlayerNbr());
     this.scoreChanged.next(this.getCurrentScore());
   }

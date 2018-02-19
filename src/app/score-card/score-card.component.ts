@@ -15,34 +15,31 @@ import { Subject } from 'rxjs/Subject';
 })
 export class ScoreCardComponent implements OnInit, OnDestroy {
   currentHoleNotification: BehaviorSubject<number>;
+  holeSubscription: Subscription;
   currentHole: number;
   currentScoreNotification: BehaviorSubject<number>;
+  scoreSubscription: Subscription;
   currentScore: number;
   currentTotScore: number;
   currentPlayerNumberNotification: BehaviorSubject<number>;
+  playerNbrSubscription: Subscription;
   currentPlayerNumber = 0;
   currentPlayer: Player;
-  holeSubscription: Subscription;
-  scoreSubscription: Subscription;
-  playerNbrSubscription: Subscription;
 
   constructor(private gs: GameService) { }
 
   ngOnInit() {
-    // this.currentHoleNotification = this.gs.getHoleChangedNotification();
     this.holeSubscription = this.gs.getHoleChangedNotification()
       .subscribe((hole) => {
         this.updateLocalHole(hole);
       });
 
-    // this.currentPlayerNumberNotification = this.gs.getPlayerChangedNotification();
     this.playerNbrSubscription = this.gs.getPlayerChangedNotification()
       .subscribe((playerNbr) => {
         this.currentPlayerNumber = playerNbr;
         this.updatePlayerFields(this.currentPlayerNumber);
       });
 
-    // this.currentScoreNotification = this.gs.getScoreChangedNotification();
     this.scoreSubscription = this.gs.getScoreChangedNotification()
       .subscribe((score) => {
         this.updateScoreFields(score);
@@ -57,21 +54,13 @@ export class ScoreCardComponent implements OnInit, OnDestroy {
     this.currentPlayerNumber = playerNumber ;
     this.currentPlayer = this.gs.getCurrentPlayer();
     this.currentTotScore = this.gs.getCurrentTotScore();
-    console.log('score-card: updatePlayerFields: current player name: ' +
-      this.currentPlayer.name );
-    console.log('score-card: updatePlayerFields: current player number: ' +
-      this.currentPlayerNumber );
-    console.log('score-card: updatePlayerFields: current total score: ' +
-     this.currentTotScore );
   }
 
   nextPlayer() {
-    console.log('score-card.nextPlayer()')
     this.gs.nextPlayer();
   }
 
   prevPlayer() {
-    console.log('score-card.prevPlayer()');
     this.gs.prevPlayer();
   }
 
@@ -103,3 +92,5 @@ export class ScoreCardComponent implements OnInit, OnDestroy {
     this.scoreSubscription.unsubscribe();
   }
 }
+
+
