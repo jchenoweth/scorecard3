@@ -87,9 +87,15 @@ export class ScoreCardComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.holeSubscription.unsubscribe();
-    this.playerNbrSubscription.unsubscribe();
-    this.scoreSubscription.unsubscribe();
+    if (this.holeSubscription) {
+      this.holeSubscription.unsubscribe();
+    }
+    if (this.playerNbrSubscription) {
+      this.playerNbrSubscription.unsubscribe();
+    }
+    if (this.scoreSubscription) {
+      this.scoreSubscription.unsubscribe();
+    }
   }
 }
 

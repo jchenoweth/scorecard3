@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { GameService } from '../shared/game.service';
 
 @Component({
@@ -6,13 +6,9 @@ import { GameService } from '../shared/game.service';
   templateUrl: './game-maint.component.html',
   styleUrls: ['./game-maint.component.css']
 })
-export class GameMaintComponent implements OnInit {
+export class GameMaintComponent {
 
   constructor(private gs: GameService) { }
-
-  ngOnInit () {
-    this.gs.initializeGame();
-  }
 
   resetScores() {
     this.gs.initializeScores();

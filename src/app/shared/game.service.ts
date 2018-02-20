@@ -10,7 +10,7 @@ export class GameService {
   private scoreChanged = new BehaviorSubject<number>(0);
   private holeChanged = new BehaviorSubject<number>(1);
   private playerChanged = new BehaviorSubject<number>(0);
-  private teams: Team[]= [];
+  private teams: Team[] = [];
   private currentTeam: number;
   private currentHole: number;
   private currentPlayerNumber: number;
@@ -122,7 +122,7 @@ export class GameService {
 
   setCurrentPlayer(player: Player) {
     this.currentPlayer = player;
-  };
+  }
 
   setCurrentPlayerNumber(playerNumber: number) {
     this.currentPlayerNumber = playerNumber;
@@ -133,7 +133,7 @@ export class GameService {
       this.currentPlayerNumber--;
     } else {
       this.setCurrentPlayerNumber(this.players.length - 1);
-    };
+    }
 
     this.playerChanged.next(this.getCurrentPlayerNbr());
     this.scoreChanged.next(this.getCurrentScore());
