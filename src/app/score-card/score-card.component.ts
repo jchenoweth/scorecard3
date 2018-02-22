@@ -86,6 +86,10 @@ export class ScoreCardComponent implements OnInit, OnDestroy {
     this.gs.updateHole(hole);
   }
 
+  onSave() {
+    
+  }
+
   ngOnDestroy() {
     if (this.holeSubscription) {
       this.holeSubscription.unsubscribe();

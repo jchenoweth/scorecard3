@@ -10,8 +10,8 @@ import { Router } from '@angular/router';
 })
 export class PickPlayerComponent implements OnInit {
   @Input() currentPlayer: Player;
-  @Output() onPrevPlayer: EventEmitter<string> = new EventEmitter<string>();
-  @Output() onNextPlayer: EventEmitter<string> = new EventEmitter<string>();
+  @Output() prevPlayer: EventEmitter<string> = new EventEmitter<string>();
+  @Output() nextPlayer: EventEmitter<string> = new EventEmitter<string>();
 
   constructor(
     public gs: GameService,
@@ -24,14 +24,12 @@ export class PickPlayerComponent implements OnInit {
     this.router.navigate(['playermaint']);
   }
 
-  prevPlayer() {
-    console.log('pick-player.prevPlayer()');
-    this.onPrevPlayer.emit('prev');
+  onPrevPlayer() {
+    this.prevPlayer.emit('prev');
   }
 
-  nextPlayer() {
-    console.log('pick-player.nextPlayer()');
-    this.onNextPlayer.emit('next');
+  onNextPlayer() {
+    this.nextPlayer.emit('next');
   }
 
   goBack() {

@@ -5,7 +5,7 @@
 $golf-app-primary: mat-palette($mat-green);
 
 //A200, A100, A400 = default, lighter, darker shade of color
-$golf-app-accent:  mat-palette($mat-yellow,500,300,700);
+$golf-app-accent:  mat-palette($mat-yellow,500,400,600);
 
 // The warn palette is optional (defaults to red).
 $golf-app-warn:    mat-palette($mat-red);

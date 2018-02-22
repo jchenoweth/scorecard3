@@ -134,7 +134,6 @@ export class GameService {
     } else {
       this.setCurrentPlayerNumber(this.players.length - 1);
     }
-
     this.playerChanged.next(this.getCurrentPlayerNbr());
     this.scoreChanged.next(this.getCurrentScore());
   }
