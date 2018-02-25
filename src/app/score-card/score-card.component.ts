@@ -23,12 +23,20 @@ export class ScoreCardComponent implements OnInit, OnDestroy {
   currentTotScore: number;
   currentPlayerNumberNotification: BehaviorSubject<number>;
   playerNbrSubscription: Subscription;
+  scoreCardChangedSub: Subscription;
   currentPlayerNumber = 0;
   currentPlayer: Player;
+  scoreCardDirty: boolean;
+
 
   constructor(private gs: GameService) { }
 
   ngOnInit() {
+    this.scoreCardChangedSub = this.gs.getScoreCardChangedNotification()
+      .subscribe((scorecardChangeNotification) => {
+        this.setScoreCardDirty(scorecardChangeNotification);
+      });
+
     this.holeSubscription = this.gs.getHoleChangedNotification()
       .subscribe((hole) => {
         this.updateLocalHole(hole);
@@ -102,6 +110,9 @@ export class ScoreCardComponent implements OnInit, OnDestroy {
       this.scoreSubscription.unsubscribe();
     }
   }
+
+  setScoreCardDirty(dirty: boolean) {
+    this.scoreCardDirty = dirty;
+    console.log('scoreCardDirty?: ' + this.scoreCardDirty);
+  }
 }
-
-

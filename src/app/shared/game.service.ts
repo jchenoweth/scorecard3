@@ -10,6 +10,7 @@ export class GameService {
   private scoreChanged = new BehaviorSubject<number>(0);
   private holeChanged = new BehaviorSubject<number>(1);
   private playerChanged = new BehaviorSubject<number>(0);
+  private scoreCardChanged = new Subject<boolean>();
   private teams: Team[] = [];
   private currentTeam: number;
   private currentHole: number;
@@ -19,6 +20,8 @@ export class GameService {
   private currentTotScore: number;
   private players: Player[] = [];
   private currentCourse: Course;
+  private scoreCardID: string;
+  private dirtyScoreCard: boolean;
 
   constructor() {
     this.initializeGame();
@@ -31,6 +34,7 @@ export class GameService {
     this.currentTeam = 1;
     this.setCurrentPlayerNumber(0);
     this.currentCourse = new Course('Default');
+    this.setDirtyScoreCard(false);
   }
 
   initializeScores(): void {
@@ -110,6 +114,7 @@ export class GameService {
 
     this.scoreChanged.next(this.getCurrentScore());
     this.playerChanged.next(this.getCurrentPlayerNbr());
+    this.setDirtyScoreCard(true);
     }
 
   addNewPlayer(name: string) {
@@ -118,6 +123,7 @@ export class GameService {
     this.setCurrentPlayer(this.players[this.getCurrentPlayerNbr()]);
     this.playerChanged.next(this.getCurrentPlayerNbr());
     this.scoreChanged.next(this.getCurrentScore());
+    this.setDirtyScoreCard(true);
   }
 
   setCurrentPlayer(player: Player) {
@@ -158,6 +164,7 @@ export class GameService {
     this.currentTotScore = this.getCurrentPlayer()
       .getPlayerTotalScore();
     this.scoreChanged.next(this.getCurrentScore());
+    this.setDirtyScoreCard(true);
   }
 
   decrementScore() {
@@ -166,5 +173,24 @@ export class GameService {
     this.currentTotScore = this.getCurrentPlayer()
       .getPlayerTotalScore();
     this.scoreChanged.next(this.getCurrentScore());
+    this.setDirtyScoreCard(true);
+  }
+
+  saveScoreCard() {
+    // if (this.scoreCardID & this.dirtyScoreCard) {
+      // update scorecard using this.scoreCardID
+    // } else {
+      // add scorecard document
+      // save this.scoreCardID in property
+  //   }
+  }
+
+  setDirtyScoreCard(isDirty: boolean) {
+    this.dirtyScoreCard = isDirty;
+    this.scoreCardChanged.next(true);
+  }
+
+  getScoreCardChangedNotification(): Subject<boolean> {
+    return this.scoreCardChanged;
   }
 }
