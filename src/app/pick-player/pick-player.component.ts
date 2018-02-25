@@ -29,6 +29,7 @@ export class PickPlayerComponent implements OnInit {
   }
 
   onNextPlayer() {
+    console.log('pick-player onNextPlayer() called');
     this.nextPlayer.emit('next');
   }
 

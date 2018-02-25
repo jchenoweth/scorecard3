@@ -57,6 +57,7 @@ export class ScoreCardComponent implements OnInit, OnDestroy {
   }
 
   nextPlayer() {
+    console.log('score-card.nextPlayer() called');
     this.gs.nextPlayer();
   }
 
@@ -87,7 +88,7 @@ export class ScoreCardComponent implements OnInit, OnDestroy {
   }
 
   onSave() {
-    
+
   }
 
   ngOnDestroy() {

@@ -143,8 +143,11 @@ export class GameService {
     if (numOfPlayers > 0) {
       if (this.getCurrentPlayerNbr() !== (numOfPlayers - 1)) {
         this.currentPlayerNumber++;
-      } else {this.setCurrentPlayerNumber(0); }
+      } else {
+        this.setCurrentPlayerNumber(0);
+      }
     }
+    console.log('player number: ' + this.currentPlayerNumber);
     this.playerChanged.next(this.getCurrentPlayerNbr());
     this.scoreChanged.next(this.getCurrentScore());
   }
