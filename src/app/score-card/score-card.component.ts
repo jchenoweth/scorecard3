@@ -109,6 +109,9 @@ export class ScoreCardComponent implements OnInit, OnDestroy {
     if (this.scoreSubscription) {
       this.scoreSubscription.unsubscribe();
     }
+    if (this.scoreCardChangedSub) {
+      this.scoreCardChangedSub.unsubscribe();
+    }
   }
 
   setScoreCardDirty(dirty: boolean) {

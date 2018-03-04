@@ -4,6 +4,7 @@ import { Subject } from 'rxjs/Subject';
 import { Team } from './team.model';
 import { Injectable } from '@angular/core';
 import { Player } from '../shared/player.model';
+import { AngularFirestore } from 'angularfire2/firestore';
 
 @Injectable()
 export class GameService {
@@ -23,7 +24,7 @@ export class GameService {
   private scoreCardID: string;
   private dirtyScoreCard: boolean;
 
-  constructor() {
+  constructor(private afs: AngularFirestore) {
     this.initializeGame();
   }
 
@@ -177,12 +178,14 @@ export class GameService {
   }
 
   saveScoreCard() {
-    // if (this.scoreCardID & this.dirtyScoreCard) {
-      // update scorecard using this.scoreCardID
-    // } else {
-      // add scorecard document
-      // save this.scoreCardID in property
-  //   }
+    // need to add a new scorecard to the collection when they first login,
+    // then save scoreCardID in property
+    if (this.scoreCardID & this.dirtyScoreCard) {
+      this.afs.collection('scorecard/${scoreCardID}').
+    } else {
+      add scorecard document
+      save this.scoreCardID in property
+    }
   }
 
   setDirtyScoreCard(isDirty: boolean) {
