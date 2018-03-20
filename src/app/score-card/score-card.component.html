@@ -17,8 +17,8 @@
       [currentPlayer]="currentPlayer"
       [currentHole]="currentHole"
       [currentScore]="currentScore"
-      (incScore)="incrementScore($event)"
-      (decScore)="decrementScore($event)">
+      (incScore)="incrementScore()"
+      (decScore)="decrementScore()">
     </app-enter-score>
 
     <app-total-score [totScore]="currentTotScore">

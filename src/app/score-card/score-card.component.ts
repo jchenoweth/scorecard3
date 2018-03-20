@@ -26,7 +26,7 @@ export class ScoreCardComponent implements OnInit, OnDestroy {
   scoreCardChangedSub: Subscription;
   currentPlayerNumber = 0;
   currentPlayer: Player;
-  scoreCardDirty: boolean;
+
 
 
   constructor(private gs: GameService) { }
@@ -96,7 +96,8 @@ export class ScoreCardComponent implements OnInit, OnDestroy {
   }
 
   onSave() {
-
+    this.gs.setScoreCardDirty(false);
+    this.gs.saveScoreCard();
   }
 
   ngOnDestroy() {
@@ -115,7 +116,7 @@ export class ScoreCardComponent implements OnInit, OnDestroy {
   }
 
   setScoreCardDirty(dirty: boolean) {
-    this.scoreCardDirty = dirty;
-    console.log('scoreCardDirty?: ' + this.scoreCardDirty);
+    this.gs.setScoreCardDirty(dirty);
+    console.log('scoreCardDirty?: ' + this.gs.getScoreCardDirty());
   }
 }

@@ -1,10 +1,14 @@
+import { Observable } from 'rxjs/Observable';
+import { Game } from './game.model';
+import { GameID } from './gameID.model';
 import { Course } from './course.model';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Subject } from 'rxjs/Subject';
 import { Team } from './team.model';
 import { Injectable } from '@angular/core';
 import { Player } from '../shared/player.model';
-import { AngularFirestore } from 'angularfire2/firestore';
+import { AngularFirestore, AngularFirestoreDocument  } from 'angularfire2/firestore';
+import { Scores } from './score.model';
 
 @Injectable()
 export class GameService {
@@ -23,6 +27,14 @@ export class GameService {
   private currentCourse: Course;
   private scoreCardID: string;
   private dirtyScoreCard: boolean;
+  private scoreCardDirty = false;
+  private gameID = '';
+  private scoreID = '';
+  private scoreArray: Scores[];
+  private scoreInfo = {};
+  private gameInfo: Observable<Game[]>;
+  private scoresDoc: AngularFirestoreDocument<Scores>;
+
 
   constructor(private afs: AngularFirestore) {
     this.initializeGame();
@@ -36,6 +48,7 @@ export class GameService {
     this.setCurrentPlayerNumber(0);
     this.currentCourse = new Course('Default');
     this.setDirtyScoreCard(false);
+    this.gameID = '';
   }
 
   initializeScores(): void {
@@ -45,6 +58,19 @@ export class GameService {
     this.currentScore = this.getCurrentScore();
     this.currentTotScore = this.getCurrentTotScore();
     this.scoreChanged.next(this.getCurrentScore());
+  }
+
+  setScoreCardDirty(dirtyFlag) {
+    this.scoreCardDirty = dirtyFlag;
+  }
+
+  getScoreCardDirty(): boolean {
+    return this.scoreCardDirty;
+  }
+
+  resetGameID() {
+    this.setDirtyScoreCard(false);
+    this.gameID = '';
   }
 
   getCurrentCourse() {
@@ -178,14 +204,44 @@ export class GameService {
   }
 
   saveScoreCard() {
-    // need to add a new scorecard to the collection when they first login,
-    // then save scoreCardID in property
-    if (this.scoreCardID & this.dirtyScoreCard) {
-      this.afs.collection('scorecard/${scoreCardID}').
+    if (this.gameID === '') {
+      console.log('No gameID... before save');
+      const gamesCollection = this.afs.collection<Game>('game');
+      gamesCollection.add({
+        outingID: 'test1',
+        createDate: new Date(),
+        playerScores: this.getScoreInfo()})
+      .then(docRef => {
+          this.gameID = docRef.id;
+        })
+      .catch(error => {
+          console.log('gamesCollection.add:error ' + error );
+        });
     } else {
-      add scorecard document
-      save this.scoreCardID in property
-    }
+        const gameDocRef = this.afs.collection<Game>('game').doc(this.gameID);
+        gameDocRef.update({ playerScores: this.getScoreInfo() })
+        .then(updateRef => {
+          console.log('Existing Game update: ' + updateRef);
+        })
+        .catch(error => {
+          console.log('Existing Game update error: ' + error );
+        });
+      }
+  }
+
+  getScoreInfo(): Scores[] {
+    const scoreArray: Scores[] = [];
+    console.log('getScoreInfo: length of PlayersArray: ' + this.getPlayers().length);
+    this.getPlayers().forEach( (player, playerNbr) => {
+      console.log('getScoreInfo: playerNbr: ' + playerNbr);
+      scoreArray.push( {
+        userID: 'jchenoweth1@gmail.com',
+        playerName: this.players[playerNbr].name,
+        playerScores: this.players[playerNbr].getPlayerScores(),
+        gameID: this.gameID
+      });
+    });
+    return scoreArray;
   }
 
   setDirtyScoreCard(isDirty: boolean) {

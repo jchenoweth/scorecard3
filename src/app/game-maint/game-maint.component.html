@@ -1,12 +1,18 @@
 <mat-card >
   <app-heading headingTitle='Games Maint'></app-heading>
 
-  <div fxLayout="column" fxLayoutWrap fxLayoutAlign="space-between center">
+  <div fxLayout="column" fxLayoutGap="20px" fxLayoutAlign="space-between center">
     <button
       mat-raised-button
       color="warn"
-      (click)="resetScores()">
-      Reset Scores
+      (click)="onResetScores()">
+      Reset Current Game Scores
     </button>
+    <button
+    mat-raised-button
+    color="warn"
+    (click)="onNewGame()">
+    New Game
+  </button>
   </div>
 </mat-card>

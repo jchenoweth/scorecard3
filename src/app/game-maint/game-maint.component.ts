@@ -10,8 +10,13 @@ export class GameMaintComponent {
 
   constructor(private gs: GameService) { }
 
-  resetScores() {
+  onResetScores() {
     this.gs.initializeScores();
+  }
+
+  onNewGame() {
+    this.gs.initializeScores();
+    this.gs.resetGameID();
   }
 
 }

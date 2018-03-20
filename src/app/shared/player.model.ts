@@ -9,7 +9,7 @@ export class Player {
   }
 
   resetScores(): void {
-    this.score = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+    this.score = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
   }
 
   incrementScore(hole: number): number {
@@ -56,6 +56,10 @@ export class Player {
 
   getPlayerTotalScore(): number {
     return this.score.reduce((total, num) => total + num, 0);
+  }
+
+  getPlayerScores(): number[] {
+    return this.score;
   }
 
 }

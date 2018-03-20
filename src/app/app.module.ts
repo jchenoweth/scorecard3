@@ -1,3 +1,4 @@
+
 import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
@@ -29,6 +30,7 @@ import { HoleDescComponent } from './hole-desc/hole-desc.component';
 import { HeadingComponent } from './heading/heading.component';
 import { SignupComponent } from './auth/signup/signup.component';
 import { LoginComponent } from './auth/login/login.component';
+import { LogoutComponent } from './auth/logout/logout.component';
 
 import { CourseService } from './shared/course.service';
 import { UIService } from './shared/ui.service';
@@ -47,7 +49,7 @@ const routes: Routes = [
   { path: 'holedesc', component: HoleDescComponent},
   { path: 'signup', component: SignupComponent},
   { path: 'login', component: LoginComponent},
-  { path: 'logout', component: LoginComponent},
+  { path: 'logout', component: LogoutComponent},
   { path: '**', component: NotFoundComponent }
 ];
 
@@ -69,6 +71,7 @@ const routes: Routes = [
     HeadingComponent,
     SignupComponent,
     LoginComponent,
+    LogoutComponent,
     TermsComponent
   ],
   imports: [
