@@ -1,3 +1,4 @@
+import { AuthService } from './../auth/auth.service';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Subscription } from 'rxjs/Subscription';
 import { GameService } from './../shared/game.service';
@@ -29,7 +30,7 @@ export class ScoreCardComponent implements OnInit, OnDestroy {
 
 
 
-  constructor(private gs: GameService) { }
+  constructor(public gs: GameService, public auth: AuthService) { }
 
   ngOnInit() {
     this.scoreCardChangedSub = this.gs.getScoreCardChangedNotification()

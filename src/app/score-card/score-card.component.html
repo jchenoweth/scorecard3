@@ -25,8 +25,9 @@
     </app-total-score>
 
     <button
+      *ngIf="this.auth.isAuth()"
       mat-raised-button
-      [disabled]="!scoreCardDirty"
+      [disabled]="!this.gs.getScoreCardDirty()"
       color="accent"
       (click)="onSave()">
       <h1 mat-h1>Save</h1>
