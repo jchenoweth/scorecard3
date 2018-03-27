@@ -1,0 +1,23 @@
+{
+  "short_name": "Score Card",
+  "name": "Golf Score Card",
+  "display": "standalone",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "scorecard-icon-1x.png",
+      "type": "image/png",
+      "sizes": "48x48"
+    },
+    {
+      "src": "scorecard-icon-2x.png",
+      "type": "image/png",
+      "sizes": "96x96"
+    },
+    {
+      "src": "scorecard-icon-4x.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    }
+  ]
+}
