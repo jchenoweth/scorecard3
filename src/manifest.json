@@ -5,17 +5,22 @@
   "orientation": "portrait-primary",
   "icons": [
     {
-      "src": "/src/assets/scorecard-icon-1x.png",
+      "src": "/assets/scorecard-icon-1x.png",
       "type": "image/png",
       "sizes": "48x48"
     },
     {
-      "src": "/src/assets/scorecard-icon-2x.png",
+      "src": "/assets/scorecard-icon-2x.png",
       "type": "image/png",
       "sizes": "96x96"
     },
     {
-      "src": "/src/assets/scorecard-icon-4x.png",
+      "src": "/assets/scorecard-icon-144x.png",
+      "type": "image/png",
+      "sizes": "144x144"
+    },
+    {
+      "src": "/assets/scorecard-icon-4x.png",
       "type": "image/png",
       "sizes": "192x192"
     }
