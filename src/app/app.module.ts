@@ -31,6 +31,7 @@ import { HeadingComponent } from './heading/heading.component';
 import { SignupComponent } from './auth/signup/signup.component';
 import { LoginComponent } from './auth/login/login.component';
 import { LogoutComponent } from './auth/logout/logout.component';
+import { SavedGamesComponent } from './saved-games/saved-games.component';
 
 import { CourseService } from './shared/course.service';
 import { UIService } from './shared/ui.service';
@@ -50,12 +51,14 @@ const routes: Routes = [
   { path: 'signup', component: SignupComponent},
   { path: 'login', component: LoginComponent},
   { path: 'logout', component: LogoutComponent},
+  { path: 'savedgames', component: SavedGamesComponent},
   { path: '**', component: NotFoundComponent }
 ];
 
 @NgModule({
   declarations: [
     AppComponent,
+    SavedGamesComponent,
     NotFoundComponent,
     ScoreCardComponent,
     PickPlayerComponent,

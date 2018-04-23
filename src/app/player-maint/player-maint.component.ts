@@ -26,12 +26,16 @@ export class PlayerMaintComponent implements OnInit {
 
   ngOnInit() {
     this.players = this.gs.getPlayers();
-    this.playerInputElement.nativeElement.focus();
+    // this.playerInputElement.nativeElement.focus();
 
     this.playerNbrSubscription = this.gs.getPlayerChangedNotification()
     .subscribe((playerNbr) => {
       this.players = this.gs.getPlayers();
     });
+  }
+
+  onInputClicked() {
+    this.playerInputElement.nativeElement.focus();
   }
 
   onPlayerClicked(
