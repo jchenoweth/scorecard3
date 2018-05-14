@@ -46,7 +46,7 @@
   <div fxLayout="row" fxLayoutAlign="center center">
 
     <form #form="ngForm">
-      <mat-input-container  color="accent">
+      <mat-form-field color="accent">
         <input
           ngModel
           id="player"
@@ -59,13 +59,11 @@
           value=""
           (click)="onInputClicked()">
         <mat-hint>Player name max length:5</mat-hint>
-      </mat-input-container>
+      </mat-form-field>
     </form>
   </div>
   <br>
   <br>
-
-
   <br>
   <div fxLayout="column" fxLayoutGap="20px" fxLayoutAlign="center">
     <button

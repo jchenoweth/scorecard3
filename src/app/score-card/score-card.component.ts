@@ -1,10 +1,10 @@
 import { AuthService } from './../auth/auth.service';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { Subscription } from 'rxjs/Subscription';
+import { BehaviorSubject } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { GameService } from './../shared/game.service';
 import { Player } from './../shared/player.model';
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Subject } from 'rxjs/Subject';
+import { Subject } from 'rxjs';
 
 // The this component should maintain the current hole, player, score
 // and pass that info to the corresponding service when needed

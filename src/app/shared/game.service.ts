@@ -1,9 +1,9 @@
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { Game } from './game.model';
 import { GameID } from './gameID.model';
 import { Course } from './course.model';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { Subject } from 'rxjs/Subject';
+import { BehaviorSubject } from 'rxjs';
+import { Subject } from 'rxjs';
 import { Team } from './team.model';
 import { Injectable } from '@angular/core';
 import { Player } from '../shared/player.model';

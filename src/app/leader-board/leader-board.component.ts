@@ -4,9 +4,9 @@ import { GameService } from '../shared/game.service';
 import { Player } from '../shared/player.model';
 import { GameScore } from '../shared/leaderboard.model';
 import { DataSource } from '@angular/cdk/collections';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { Subject } from 'rxjs/Subject';
-import { Observable } from 'rxjs/Observable';
+import { BehaviorSubject } from 'rxjs';
+import { Subject } from 'rxjs';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-leader-board',
@@ -20,12 +20,12 @@ export class LeaderBoardComponent implements OnInit {
   // dataSource: LeaderBoardDataSource | null;
   leaderBoardScores: BehaviorSubject<GameScore[]> = new BehaviorSubject<GameScore[]>([]);
   players: Player[];
-  gameScores: GameScore[]= [];
-  frontTotalScore= 0;
-  backTotalScore= 0;
-  totalBack9Score= 0;
-  totalFront9Score= 0;
-  totScore= 0;
+  gameScores: GameScore[] = [];
+  frontTotalScore = 0;
+  backTotalScore = 0;
+  totalBack9Score = 0;
+  totalFront9Score = 0;
+  totScore = 0;
 
 
   constructor( private gs: GameService,
@@ -35,7 +35,7 @@ export class LeaderBoardComponent implements OnInit {
   ngOnInit() {
     this.players = this.gs.getPlayers();
 
-    for (let plr of this.players) {
+    for (const plr of this.players) {
       this.totScore = plr.score.reduce((total, num) => total + num);
       this.frontTotalScore = plr.getFront9Score();
       this.backTotalScore = plr.getBack9Score();
