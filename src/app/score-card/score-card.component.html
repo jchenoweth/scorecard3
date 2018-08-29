@@ -1,35 +1,33 @@
-<div
-    fxLayout="column"
-    fxLayoutAlign="center">
+<section fxLayout="column" fxLayoutAlign="center">
 
-    <app-pick-hole
-      [currentHole]="currentHole"
-      (holeChanged)="updateCurrentHole($event)">
-    </app-pick-hole>
+  <app-pick-hole
+    [currentHole]="currentHole"
+    (holeChanged)="updateCurrentHole($event)">
+  </app-pick-hole>
 
-    <app-pick-player
-      [currentPlayer]="currentPlayer"
-      (prevPlayer)="prevPlayer()"
-      (nextPlayer)="nextPlayer()">
-    </app-pick-player>
+  <app-pick-player
+    [currentPlayer]="currentPlayer"
+    (prevPlayer)="prevPlayer()"
+    (nextPlayer)="nextPlayer()">
+  </app-pick-player>
 
-    <app-enter-score
-      [currentPlayer]="currentPlayer"
-      [currentHole]="currentHole"
-      [currentScore]="currentScore"
-      (incScore)="incrementScore()"
-      (decScore)="decrementScore()">
-    </app-enter-score>
+  <app-enter-score
+    [currentPlayer]="currentPlayer"
+    [currentHole]="currentHole"
+    [currentScore]="currentScore"
+    (incScore)="incrementScore()"
+    (decScore)="decrementScore()">
+  </app-enter-score>
 
-    <app-total-score [totScore]="currentTotScore">
-    </app-total-score>
+  <app-total-score [totScore]="currentTotScore">
+  </app-total-score>
 
-    <button
-      *ngIf="this.auth.isAuth()"
-      mat-raised-button
-      [disabled]="!this.gs.getScoreCardDirty()"
-      color="accent"
-      (click)="onSave()">
-      <h1 mat-h1>Save</h1>
-    </button>
-</div>
+  <button
+    *ngIf="this.auth.isAuth()"
+    mat-raised-button
+    [disabled]="!this.gs.getScoreCardDirty()"
+    color="accent"
+    (click)="onSave()">
+    <h1 mat-h1>Save</h1>
+  </button>
+</section>

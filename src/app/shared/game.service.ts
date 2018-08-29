@@ -1,20 +1,21 @@
-import { Observable } from 'rxjs';
-import { Game } from './game.model';
-import { GameID } from './gameID.model';
-import { Course } from './course.model';
-import { BehaviorSubject } from 'rxjs';
-import { Subject } from 'rxjs';
-import { Team } from './team.model';
 import { Injectable } from '@angular/core';
-import { Player } from '../shared/player.model';
 import { AngularFirestore, AngularFirestoreDocument  } from 'angularfire2/firestore';
+
+import { BehaviorSubject } from 'rxjs';
+import { Observable } from 'rxjs';
+import { Subject } from 'rxjs';
+import { Game } from './game.model';
+// import { GameID } from './gameID.model';
+import { Team } from './team.model';
+import { Player } from '../shared/player.model';
 import { Scores } from './score.model';
+import { Course } from './course.model';
 
 @Injectable()
 export class GameService {
-  private scoreChanged = new BehaviorSubject<number>(0);
+  private scoreToDisplayChanged = new BehaviorSubject<number>(0);
   private holeChanged = new BehaviorSubject<number>(1);
-  private playerChanged = new BehaviorSubject<number>(0);
+  private playerToDisplayChanged = new BehaviorSubject<number>(0);
   private scoreCardChanged = new Subject<boolean>();
   private teams: Team[] = [];
   private currentTeam: number;
@@ -26,15 +27,14 @@ export class GameService {
   private players: Player[] = [];
   private currentCourse: Course;
   private scoreCardID: string;
-  private dirtyScoreCard: boolean;
+  private isScoreCardDirty: boolean;
   private scoreCardDirty = false;
-  private gameID = '';
+  private gameID;
   private scoreID = '';
   private scoreArray: Scores[];
   private scoreInfo = {};
   private gameInfo: Observable<Game[]>;
   private scoresDoc: AngularFirestoreDocument<Scores>;
-
 
   constructor(private afs: AngularFirestore) {
     this.initializeGame();
@@ -57,7 +57,7 @@ export class GameService {
     });
     this.currentScore = this.getCurrentScore();
     this.currentTotScore = this.getCurrentTotScore();
-    this.scoreChanged.next(this.getCurrentScore());
+    this.scoreToDisplayChanged.next(this.getCurrentScore());
   }
 
   setScoreCardDirty(dirtyFlag) {
@@ -78,7 +78,7 @@ export class GameService {
   }
 
   getScoreChangedNotification(): BehaviorSubject<number> {
-    return this.scoreChanged;
+    return this.scoreToDisplayChanged;
   }
 
   getHoleChangedNotification(): BehaviorSubject<number> {
@@ -86,7 +86,7 @@ export class GameService {
   }
 
   getPlayerChangedNotification(): BehaviorSubject<number> {
-    return this.playerChanged;
+    return this.playerToDisplayChanged;
   }
 
   getCurrentPlayerNbr(): number {
@@ -112,8 +112,7 @@ export class GameService {
 
   updateHole(hole: number) {
     this.setCurrentHole(hole);
-    this.holeChanged.next(hole);
-    this.scoreChanged.next(this.getCurrentScore());
+    this.scoreToDisplayChanged.next(this.getCurrentScore());
   }
 
   getCurrentHole(): number {
@@ -127,7 +126,7 @@ export class GameService {
 
   updatePlayerName(name: string, playerNbr: number) {
     this.players[playerNbr].name = name;
-    this.playerChanged.next(this.getCurrentPlayerNbr());
+    this.playerToDisplayChanged.next(this.getCurrentPlayerNbr());
   }
 
   deletePlayer(playerNbr: number) {
@@ -139,8 +138,8 @@ export class GameService {
       this.setCurrentPlayerNumber(0);
     }
 
-    this.scoreChanged.next(this.getCurrentScore());
-    this.playerChanged.next(this.getCurrentPlayerNbr());
+    this.scoreToDisplayChanged.next(this.getCurrentScore());
+    this.playerToDisplayChanged.next(this.getCurrentPlayerNbr());
     this.setDirtyScoreCard(true);
     }
 
@@ -148,8 +147,8 @@ export class GameService {
     this.setCurrentPlayerNumber(this.players.length);
     this.players[this.getCurrentPlayerNbr()] = new Player(name);
     this.setCurrentPlayer(this.players[this.getCurrentPlayerNbr()]);
-    this.playerChanged.next(this.getCurrentPlayerNbr());
-    this.scoreChanged.next(this.getCurrentScore());
+    this.playerToDisplayChanged.next(this.getCurrentPlayerNbr());
+    this.scoreToDisplayChanged.next(this.getCurrentScore());
     this.setDirtyScoreCard(true);
   }
 
@@ -167,8 +166,8 @@ export class GameService {
     } else {
       this.setCurrentPlayerNumber(this.players.length - 1);
     }
-    this.playerChanged.next(this.getCurrentPlayerNbr());
-    this.scoreChanged.next(this.getCurrentScore());
+    this.playerToDisplayChanged.next(this.getCurrentPlayerNbr());
+    this.scoreToDisplayChanged.next(this.getCurrentScore());
   }
 
   nextPlayer() {
@@ -180,9 +179,8 @@ export class GameService {
         this.setCurrentPlayerNumber(0);
       }
     }
-    console.log('player number: ' + this.currentPlayerNumber);
-    this.playerChanged.next(this.getCurrentPlayerNbr());
-    this.scoreChanged.next(this.getCurrentScore());
+    this.playerToDisplayChanged.next(this.getCurrentPlayerNbr());
+    this.scoreToDisplayChanged.next(this.getCurrentScore());
   }
 
   incrementScore() {
@@ -190,7 +188,7 @@ export class GameService {
       .incrementScore(this.getCurrentHole());
     this.currentTotScore = this.getCurrentPlayer()
       .getPlayerTotalScore();
-    this.scoreChanged.next(this.getCurrentScore());
+    this.scoreToDisplayChanged.next(this.getCurrentScore());
     this.setDirtyScoreCard(true);
   }
 
@@ -199,13 +197,12 @@ export class GameService {
       .decrementScore(this.getCurrentHole());
     this.currentTotScore = this.getCurrentPlayer()
       .getPlayerTotalScore();
-    this.scoreChanged.next(this.getCurrentScore());
+    this.scoreToDisplayChanged.next(this.getCurrentScore());
     this.setDirtyScoreCard(true);
   }
 
   saveScoreCard() {
     if (this.gameID === '') {
-      console.log('No gameID... before save');
       const gamesCollection = this.afs.collection<Game>('game');
       gamesCollection.add({
         outingID: 'test1',
@@ -231,9 +228,7 @@ export class GameService {
 
   getScoreInfo(): Scores[] {
     const scoreArray: Scores[] = [];
-    console.log('getScoreInfo: length of PlayersArray: ' + this.getPlayers().length);
     this.getPlayers().forEach( (player, playerNbr) => {
-      console.log('getScoreInfo: playerNbr: ' + playerNbr);
       scoreArray.push( {
         userID: 'jchenoweth1@gmail.com',
         playerName: this.players[playerNbr].name,
@@ -245,7 +240,7 @@ export class GameService {
   }
 
   setDirtyScoreCard(isDirty: boolean) {
-    this.dirtyScoreCard = isDirty;
+    this.isScoreCardDirty = isDirty;
     this.scoreCardChanged.next(true);
   }
 

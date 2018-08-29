@@ -1,10 +1,9 @@
-import { AuthService } from './../auth/auth.service';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { Subscription } from 'rxjs';
+import { AuthService } from './../auth/auth.service';
 import { GameService } from './../shared/game.service';
 import { Player } from './../shared/player.model';
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Subject } from 'rxjs';
 
 // The this component should maintain the current hole, player, score
 // and pass that info to the corresponding service when needed
@@ -28,8 +27,6 @@ export class ScoreCardComponent implements OnInit, OnDestroy {
   currentPlayerNumber = 0;
   currentPlayer: Player;
 
-
-
   constructor(public gs: GameService, public auth: AuthService) { }
 
   ngOnInit() {
@@ -46,27 +43,26 @@ export class ScoreCardComponent implements OnInit, OnDestroy {
     this.playerNbrSubscription = this.gs.getPlayerChangedNotification()
       .subscribe((playerNbr) => {
         this.currentPlayerNumber = playerNbr;
-        this.updatePlayerFields(this.currentPlayerNumber);
+        this.updateLocalPlayerFields(this.currentPlayerNumber);
       });
 
     this.scoreSubscription = this.gs.getScoreChangedNotification()
       .subscribe((score) => {
-        this.updateScoreFields(score);
+        this.refreshLocalScoreFields(score);
       });
 
-    this.updatePlayerFields(this.gs.getCurrentPlayerNbr());
-    this.updateScoreFields(this.gs.getCurrentScore());
-    this.updateLocalHole(this.gs.getCurrentHole());
+    // this.updateLocalPlayerFields(this.gs.getCurrentPlayerNbr());
+    // this.refreshLocalScoreFields(this.gs.getCurrentScore());
+    // this.updateLocalHole(this.gs.getCurrentHole());
   }
 
-  updatePlayerFields(playerNumber: number) {
+  updateLocalPlayerFields(playerNumber: number) {
     this.currentPlayerNumber = playerNumber ;
     this.currentPlayer = this.gs.getCurrentPlayer();
     this.currentTotScore = this.gs.getCurrentTotScore();
   }
 
   nextPlayer() {
-    console.log('score-card.nextPlayer() called');
     this.gs.nextPlayer();
   }
 
@@ -74,7 +70,7 @@ export class ScoreCardComponent implements OnInit, OnDestroy {
     this.gs.prevPlayer();
   }
 
-  updateScoreFields(score: number) {
+  refreshLocalScoreFields(score: number) {
     this.currentScore = score;
     this.currentTotScore = this.gs.getCurrentTotScore();
   }
@@ -101,6 +97,10 @@ export class ScoreCardComponent implements OnInit, OnDestroy {
     this.gs.saveScoreCard();
   }
 
+  setScoreCardDirty(isDirty: boolean) {
+    this.gs.setScoreCardDirty(isDirty);
+  }
+
   ngOnDestroy() {
     if (this.holeSubscription) {
       this.holeSubscription.unsubscribe();
@@ -116,8 +116,4 @@ export class ScoreCardComponent implements OnInit, OnDestroy {
     }
   }
 
-  setScoreCardDirty(dirty: boolean) {
-    this.gs.setScoreCardDirty(dirty);
-    console.log('scoreCardDirty?: ' + this.gs.getScoreCardDirty());
-  }
 }
