@@ -10,6 +10,7 @@ import { Team } from './team.model';
 import { Player } from '../shared/player.model';
 import { Scores } from './score.model';
 import { Course } from './course.model';
+import { UIService } from '../shared/ui.service';
 
 @Injectable()
 export class GameService {
@@ -27,8 +28,8 @@ export class GameService {
   private players: Player[] = [];
   private currentCourse: Course;
   private scoreCardID: string;
-  private isScoreCardDirty: boolean;
-  private scoreCardDirty = false;
+  // private isScoreCardDirty: boolean;
+  private isScoreCardDirty = false;
   private gameID;
   private scoreID = '';
   private scoreArray: Scores[];
@@ -36,7 +37,9 @@ export class GameService {
   private gameInfo: Observable<Game[]>;
   private scoresDoc: AngularFirestoreDocument<Scores>;
 
-  constructor(private afs: AngularFirestore) {
+  constructor(
+    private afs: AngularFirestore,
+    public uiService: UIService) {
     this.initializeGame();
   }
 
@@ -60,12 +63,27 @@ export class GameService {
     this.scoreToDisplayChanged.next(this.getCurrentScore());
   }
 
+  activateSavedGame(gameToLoad) {
+    //  console.log(gameToLoad);
+     this.initializeGame();
+     this.gameID = gameToLoad.outingID;
+     let playerNumber = 0;
+     gameToLoad.data.playerScores.forEach(player => {
+       console.log(player.playerScores);
+       console.log('currentPlayerNumber: ' + this.currentPlayerNumber);
+       console.log('this.getCurrentPlayer(): ' + this.getCurrentPlayer());
+       this.getCurrentPlayer().score = player.playerScores;
+       this.getCurrentPlayer().name = player.playerName;
+      //  this.setCurrentPlayerNumber(playerNumber++);
+     });
+  }
+
   setScoreCardDirty(dirtyFlag) {
-    this.scoreCardDirty = dirtyFlag;
+    this.isScoreCardDirty = dirtyFlag;
   }
 
   getScoreCardDirty(): boolean {
-    return this.scoreCardDirty;
+    return this.isScoreCardDirty;
   }
 
   resetGameID() {
@@ -210,18 +228,22 @@ export class GameService {
         playerScores: this.getScoreInfo()})
       .then(docRef => {
           this.gameID = docRef.id;
+          this.uiService.showSnackbar('New Game Added', null, 5000);
         })
       .catch(error => {
           console.log('gamesCollection.add:error ' + error );
-        });
+          this.uiService.showSnackbar(error.message, null, 5000);
+        });  
     } else {
         const gameDocRef = this.afs.collection<Game>('game').doc(this.gameID);
         gameDocRef.update({ playerScores: this.getScoreInfo() })
         .then(updateRef => {
           console.log('Existing Game update: ' + updateRef);
+          this.uiService.showSnackbar('Existing Game updated', null, 5000);
         })
         .catch(error => {
           console.log('Existing Game update error: ' + error );
+          this.uiService.showSnackbar(error.message, null, 5000);
         });
       }
   }

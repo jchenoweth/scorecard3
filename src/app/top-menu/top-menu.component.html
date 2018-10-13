@@ -26,6 +26,10 @@
       <mat-icon>redo</mat-icon>
       <span>Game Maintenance</span>
     </button>
+    <button mat-menu-item routerLink="savedgames">
+      <mat-icon>redo</mat-icon>
+      <span>Display Saved Games</span>
+    </button>
     <button *ngIf="!this.authServ.isAuth()" mat-menu-item routerLink="signup">
       <mat-icon>person_add</mat-icon>
       <span>Register</span>

@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 import { AuthService } from './../auth/auth.service';
 import { GameService } from './../shared/game.service';
 import { Player } from './../shared/player.model';
+import { UIService } from '../shared/ui.service';
 
 // The this component should maintain the current hole, player, score
 // and pass that info to the corresponding service when needed
@@ -27,7 +28,10 @@ export class ScoreCardComponent implements OnInit, OnDestroy {
   currentPlayerNumber = 0;
   currentPlayer: Player;
 
-  constructor(public gs: GameService, public auth: AuthService) { }
+  constructor(
+    public gs: GameService,
+    public auth: AuthService,
+    public uiService: UIService) { }
 
   ngOnInit() {
     this.scoreCardChangedSub = this.gs.getScoreCardChangedNotification()

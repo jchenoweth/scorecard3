@@ -1,6 +1,12 @@
 <mat-card fxLayout="column" >
   <app-heading headingTitle='Saved Games'></app-heading>
   <div fxLayout="row" fxLayoutAlign="center" >
-
+    <mat-nav-list>
+      <a mat-list-item
+        *ngFor="let game of games | async"
+        (click)="gs.activateSavedGame(game)">
+        Game Saved on: {{ game.data.createDate.toDate() | date }}
+      </a>
+   </mat-nav-list>
   </div>
 </mat-card>

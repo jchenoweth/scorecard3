@@ -40,6 +40,7 @@ import { GameService } from './shared/game.service';
 import { AuthService } from './auth/auth.service';
 import { ScoreChangeNotificationService } from './shared/scorechangenotification.service';
 import { TermsComponent } from './terms/terms.component';
+import { DisplaySavedGamesComponent } from './display-saved-games/display-saved-games.component';
 
 const routes: Routes = [
   { path: '', component: ScoreCardComponent, pathMatch: 'full' },
@@ -76,7 +77,8 @@ const routes: Routes = [
     SignupComponent,
     LoginComponent,
     LogoutComponent,
-    TermsComponent
+    TermsComponent,
+    DisplaySavedGamesComponent
   ],
   imports: [
     BrowserModule,
