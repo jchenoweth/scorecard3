@@ -30,17 +30,15 @@ export class GameService {
   private scoreCardID: string;
   // private isScoreCardDirty: boolean;
   private isScoreCardDirty = false;
-  private gameID;
+  private gameID = '';
   private scoreID = '';
   private scoreArray: Scores[];
   private scoreInfo = {};
   private gameInfo: Observable<Game[]>;
   private scoresDoc: AngularFirestoreDocument<Scores>;
 
-  constructor(
-    private afs: AngularFirestore,
-    public uiService: UIService) {
-    this.initializeGame();
+  constructor(private af2: AngularFirestore, public uiService: UIService) {
+      this.initializeGame();
   }
 
   initializeGame(): void {
@@ -63,7 +61,7 @@ export class GameService {
     this.scoreToDisplayChanged.next(this.getCurrentScore());
   }
 
-  activateSavedGame(gameToLoad) {
+  loadSavedGame(gameToLoad) {
     //  console.log(gameToLoad);
      this.initializeGame();
      this.gameID = gameToLoad.outingID;
@@ -219,33 +217,45 @@ export class GameService {
     this.setDirtyScoreCard(true);
   }
 
+  addNewGameIDToDatabase() {
+    const gamesCollection = this.af2.collection<Game>('game');
+      gamesCollection.add({
+        outingID: 'test outing',
+        createDate: new Date(),
+        playerScores: [],
+        gameID: '' })
+      .then(docRef => {
+        this.gameID = docRef.id;
+        console.log('addNewGameIDToDatabase():this.gameID: ' + this.gameID);
+        this.updatePlayerScoresOnGame(this.gameID);
+      })
+      .catch(error => {
+        console.log('gamesCollection.add: error' + error );
+        this.uiService.showSnackbar(error.message, null, 5000);
+      });
+  }
+
+  updatePlayerScoresOnGame(newGameID) {
+    const gameDocRef = this.af2.collection<Game>('game').doc(newGameID);
+    gameDocRef.update({
+      playerScores: this.getScoreInfo(),
+      gameID: newGameID})
+    .then(() => {
+      this.uiService.showSnackbar('Game Updated', null, 5000);
+    })
+    .catch(error => {
+      console.log('Error updating player scores on Game:' + error );
+      this.uiService.showSnackbar(error.message, null, 5000);
+    });
+  }
+
+
   saveScoreCard() {
     if (this.gameID === '') {
-      const gamesCollection = this.afs.collection<Game>('game');
-      gamesCollection.add({
-        outingID: 'test1',
-        createDate: new Date(),
-        playerScores: this.getScoreInfo()})
-      .then(docRef => {
-          this.gameID = docRef.id;
-          this.uiService.showSnackbar('New Game Added', null, 5000);
-        })
-      .catch(error => {
-          console.log('gamesCollection.add:error ' + error );
-          this.uiService.showSnackbar(error.message, null, 5000);
-        });  
+      this.addNewGameIDToDatabase();
     } else {
-        const gameDocRef = this.afs.collection<Game>('game').doc(this.gameID);
-        gameDocRef.update({ playerScores: this.getScoreInfo() })
-        .then(updateRef => {
-          console.log('Existing Game update: ' + updateRef);
-          this.uiService.showSnackbar('Existing Game updated', null, 5000);
-        })
-        .catch(error => {
-          console.log('Existing Game update error: ' + error );
-          this.uiService.showSnackbar(error.message, null, 5000);
-        });
-      }
+      this.updatePlayerScoresOnGame(this.gameID);
+    }
   }
 
   getScoreInfo(): Scores[] {
@@ -253,9 +263,8 @@ export class GameService {
     this.getPlayers().forEach( (player, playerNbr) => {
       scoreArray.push( {
         userID: 'jchenoweth1@gmail.com',
-        playerName: this.players[playerNbr].name,
-        playerScores: this.players[playerNbr].getPlayerScores(),
-        gameID: this.gameID
+        playerName: player.name,
+        playerScores: player.getPlayerScores()
       });
     });
     return scoreArray;
