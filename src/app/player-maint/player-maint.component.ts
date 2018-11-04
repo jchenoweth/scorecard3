@@ -1,5 +1,4 @@
-import { Subscription } from 'rxjs';
-import { BehaviorSubject } from 'rxjs';
+import { Subscription ,  BehaviorSubject } from 'rxjs';
 import { Component, OnInit, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 import { GameService} from '../shared/game.service';
 import {Player} from '../shared/player.model';

@@ -4,9 +4,7 @@ import { GameService } from '../shared/game.service';
 import { Player } from '../shared/player.model';
 import { GameScore } from '../shared/leaderboard.model';
 import { DataSource } from '@angular/cdk/collections';
-import { BehaviorSubject } from 'rxjs';
-import { Subject } from 'rxjs';
-import { Observable } from 'rxjs';
+import { BehaviorSubject ,  Subject ,  Observable } from 'rxjs';
 
 @Component({
   selector: 'app-leader-board',

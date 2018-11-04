@@ -1,6 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
-import { Subscription } from 'rxjs';
+import { BehaviorSubject ,  Subscription } from 'rxjs';
 import { AuthService } from './../auth/auth.service';
 import { GameService } from './../shared/game.service';
 import { Player } from './../shared/player.model';

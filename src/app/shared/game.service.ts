@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreDocument  } from 'angularfire2/firestore';
 
-import { BehaviorSubject } from 'rxjs';
-import { Observable } from 'rxjs';
-import { Subject } from 'rxjs';
+import { BehaviorSubject ,  Observable ,  Subject } from 'rxjs';
 import { Game } from './game.model';
 // import { GameID } from './gameID.model';
 import { Team } from './team.model';
@@ -222,12 +220,12 @@ export class GameService {
       gamesCollection.add({
         outingID: 'test outing',
         createDate: new Date(),
-        playerScores: [],
+        playerScores: this.getScoreInfo(),
         gameID: '' })
       .then(docRef => {
         this.gameID = docRef.id;
         console.log('addNewGameIDToDatabase():this.gameID: ' + this.gameID);
-        this.updatePlayerScoresOnGame(this.gameID);
+        // this.updatePlayerScoresOnGame(this.gameID);
       })
       .catch(error => {
         console.log('gamesCollection.add: error' + error );
