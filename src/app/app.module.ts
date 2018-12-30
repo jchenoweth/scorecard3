@@ -10,9 +10,9 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { MaterialModule } from './shared/material/material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { environment } from './shared/environment';
-import { AngularFireAuthModule } from 'angularfire2/auth';
-import { AngularFirestoreModule } from 'angularfire2/firestore';
-import { AngularFireModule } from 'angularfire2';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireModule } from '@angular/fire';
 import 'hammerjs';
 
 import { AppComponent } from './app.component';

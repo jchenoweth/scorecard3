@@ -1,7 +1,7 @@
 import { Game } from './../shared/game.model';
 import { Observable } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
-import { AngularFirestore } from 'angularfire2/firestore';
+import { AngularFirestore } from '@angular/fire/firestore';
 // import { ngForm } from '@angular/forms';
 import { map } from 'rxjs/operators';
 import { GameService } from '../shared/game.service';

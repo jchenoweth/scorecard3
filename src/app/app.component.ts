@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import * as firebase from 'firebase';
 import { Observable } from 'rxjs';
-import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
+import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { AuthService } from './auth/auth.service';
 
 @Component({
