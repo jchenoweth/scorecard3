@@ -1,4 +1,4 @@
-import { AngularFirestoreCollection, AngularFirestore } from '@angular/fire/firestore';
+import { AngularFirestore } from '@angular/fire/firestore';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
@@ -23,7 +23,8 @@ export class LoginComponent implements OnInit, OnDestroy {
     private uiService: UIService) {}
 
   ngOnInit() {
-    this.loadingSubs = this.uiService.loadingStateChanged.subscribe(isLoading => {
+    this.loadingSubs = this.uiService.loadingStateChanged
+      .subscribe(isLoading => {
       this.isLoading = isLoading;
     });
     this.loginForm = new FormGroup({
@@ -35,11 +36,14 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
+    console.log(this.loginForm.value.email);
+    console.log(this.loginForm.value.password);
+
     this.authService.login({
       email: this.loginForm.value.email,
       password: this.loginForm.value.password
     });
-    this.afs.collection('scorecard/${scoreCardID}').add('testid: test1');
+    //this.afs.collection('scorecard/${scoreCardID}').add('testid: test1');
   }
 
   ngOnDestroy() {

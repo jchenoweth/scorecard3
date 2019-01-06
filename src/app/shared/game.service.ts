@@ -1,3 +1,5 @@
+import { auth } from 'firebase';
+import { AuthService } from './../auth/auth.service';
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreDocument  } from '@angular/fire/firestore';
 
@@ -35,7 +37,9 @@ export class GameService {
   private gameInfo: Observable<Game[]>;
   private scoresDoc: AngularFirestoreDocument<Scores>;
 
-  constructor(private af2: AngularFirestore, public uiService: UIService) {
+  constructor(private af2: AngularFirestore,
+    public uiService: UIService,
+    private gameAuth: AuthService) {
       this.initializeGame();
   }
 
@@ -63,7 +67,7 @@ export class GameService {
     //  console.log(gameToLoad);
      this.initializeGame();
      this.gameID = gameToLoad.outingID;
-     let playerNumber = 0;
+     const playerNumber = 0;
      gameToLoad.data.playerScores.forEach(player => {
        console.log(player.playerScores);
        console.log('currentPlayerNumber: ' + this.currentPlayerNumber);
@@ -220,7 +224,8 @@ export class GameService {
       gamesCollection.add({
         outingID: 'test outing',
         createDate: new Date(),
-        playerScores: this.getScoreInfo(),
+        userID: this.gameAuth.getUserEmail(),
+        gamePlayers: this.getScoreInfo(),
         gameID: '' })
       .then(docRef => {
         this.gameID = docRef.id;
@@ -236,7 +241,7 @@ export class GameService {
   updatePlayerScoresOnGame(newGameID) {
     const gameDocRef = this.af2.collection<Game>('game').doc(newGameID);
     gameDocRef.update({
-      playerScores: this.getScoreInfo(),
+      gamePlayers: this.getScoreInfo(),
       gameID: newGameID})
     .then(() => {
       this.uiService.showSnackbar('Game Updated', null, 5000);
@@ -246,7 +251,6 @@ export class GameService {
       this.uiService.showSnackbar(error.message, null, 5000);
     });
   }
-
 
   saveScoreCard() {
     if (this.gameID === '') {
@@ -260,7 +264,6 @@ export class GameService {
     const scoreArray: Scores[] = [];
     this.getPlayers().forEach( (player, playerNbr) => {
       scoreArray.push( {
-        userID: 'jchenoweth1@gmail.com',
         playerName: player.name,
         playerScores: player.getPlayerScores()
       });

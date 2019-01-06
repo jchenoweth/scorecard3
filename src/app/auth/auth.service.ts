@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { MatSnackBar } from '@angular/material';
 
 import { User } from './user.model';
 import { AuthData } from './auth-data.model';
@@ -12,6 +11,7 @@ import { UIService } from '../shared/ui.service';
 export class AuthService {
   authChange = new Subject<boolean>();
   private isAuthenticated = false;
+  private userEmail = '';
 
   constructor(
     private router: Router,
@@ -19,6 +19,7 @@ export class AuthService {
     private uiService: UIService
   ) {}
 
+  // call initAuthListener() in app.component when application starts
   initAuthListener() {
     this.afAuth.authState.subscribe(user => {
       if (user) {
@@ -26,8 +27,8 @@ export class AuthService {
         this.authChange.next(true);
         this.router.navigate(['/scorecard']);
       } else {
+        // TODO cancel fb subscriptions in other services
         this.authChange.next(false);
-        // this.router.navigate(['/login']);
         this.isAuthenticated = false;
         this.router.navigate(['/scorecard']);
       }
@@ -39,8 +40,9 @@ export class AuthService {
     this.afAuth.auth
       .createUserWithEmailAndPassword(authData.email, authData.password)
       .then(result => {
+        this.userEmail = authData.email;
         this.uiService.loadingStateChanged.next(false);
-        this.uiService.showSnackbar('Account Created', null, 5000);
+        this.uiService.showSnackbar('New Account Created', null, 5000);
       })
       .catch(error => {
         this.uiService.loadingStateChanged.next(false);
@@ -53,9 +55,9 @@ export class AuthService {
     this.afAuth.auth
       .signInWithEmailAndPassword(authData.email, authData.password)
       .then(result => {
+        this.userEmail = authData.email;
         this.uiService.loadingStateChanged.next(false);
         this.uiService.showSnackbar('Login Successful', null, 5000);
-        // this.router.navigate(['/scorecard']);
       })
       .catch(error => {
         this.uiService.loadingStateChanged.next(false);
@@ -70,5 +72,9 @@ export class AuthService {
 
   isAuth() {
     return this.isAuthenticated;
+  }
+
+  getUserEmail() {
+    return this.userEmail;
   }
 }

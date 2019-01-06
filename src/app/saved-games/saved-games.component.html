@@ -5,7 +5,7 @@
       <a mat-list-item
         *ngFor="let game of games | async"
         (click)="gs.activateSavedGame(game)">
-        Game Saved on: {{ game.data.createDate.toDate() | date }}
+        Game Saved on: {{ game.data.createDate.toDate() | date:'short' }}
       </a>
    </mat-nav-list>
   </div>
