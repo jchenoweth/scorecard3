@@ -14,7 +14,9 @@ import { GameService } from '../shared/game.service';
 })
 export class SavedGamesComponent implements OnInit {
   games: Observable<any[]>;
-  constructor(private af: AngularFirestore, public gs: GameService) {
+  constructor(
+    private af: AngularFirestore,
+    public gs: GameService) {
   }
 
   ngOnInit() {
@@ -29,5 +31,9 @@ export class SavedGamesComponent implements OnInit {
           };
         });
       }));
+  }
+
+  loadSavedGame(game) {
+    this.gs.loadSavedGame(game);
   }
 }

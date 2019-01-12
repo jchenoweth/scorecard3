@@ -45,6 +45,11 @@ export class GameService {
 
   initializeGame(): void {
     this.addNewPlayer('Me');
+    this.resetGame();
+  }
+
+  resetGame(): void {
+    // this.players = [];
     this.setCurrentHole(1);
     this.initializeScores();
     this.currentTeam = 1;
@@ -64,11 +69,10 @@ export class GameService {
   }
 
   loadSavedGame(gameToLoad) {
-    //  console.log(gameToLoad);
-     this.initializeGame();
-     this.gameID = gameToLoad.outingID;
-     const playerNumber = 0;
-     gameToLoad.data.playerScores.forEach(player => {
+     console.log(gameToLoad);
+     this.resetGame();
+     this.gameID = gameToLoad.data.gameID;
+     gameToLoad.data.gamePlayers.forEach(player => {
        console.log(player.playerScores);
        console.log('currentPlayerNumber: ' + this.currentPlayerNumber);
        console.log('this.getCurrentPlayer(): ' + this.getCurrentPlayer());

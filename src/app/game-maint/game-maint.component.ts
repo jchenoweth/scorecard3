@@ -1,3 +1,4 @@
+import { AuthService } from './../auth/auth.service';
 import { Component } from '@angular/core';
 import { GameService } from '../shared/game.service';
 import { Router } from '@angular/router';
@@ -11,9 +12,11 @@ import { UIService } from '../shared/ui.service';
 })
 export class GameMaintComponent {
 
-  constructor(private gs: GameService,
-              private router: Router,
-              private uiService: UIService) { }
+  constructor(
+    private gs: GameService,
+    private router: Router,
+    public authServ: AuthService,
+    private uiService: UIService) { }
 
   onResetScores() {
     this.gs.initializeScores();

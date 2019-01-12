@@ -9,16 +9,17 @@
       Reset Current Game Scores
     </button>
     <button
-    mat-raised-button
-    color="warn"
-    (click)="onNewGame()">
-    New Game
-  </button>
-  <button
-  mat-raised-button
-  color="warn"
-  (click)="onLoadSaveGames()">
-  Load Saved Games
-</button>
+      mat-raised-button
+      color="warn"
+      (click)="onNewGame()">
+      New Game
+    </button>
+    <button
+    *ngIf="authServ.isAuth()"
+      mat-raised-button
+      color="warn"
+      (click)="onLoadSaveGames()">
+      Load Saved Games
+    </button>
   </div>
 </mat-card>
