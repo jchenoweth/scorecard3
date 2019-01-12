@@ -36,4 +36,6 @@ export class SavedGamesComponent implements OnInit {
   loadSavedGame(game) {
     this.gs.loadSavedGame(game);
   }
+
+  
 }

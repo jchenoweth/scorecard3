@@ -49,7 +49,6 @@ export class GameService {
   }
 
   resetGame(): void {
-    // this.players = [];
     this.setCurrentHole(1);
     this.initializeScores();
     this.currentTeam = 1;
@@ -59,27 +58,34 @@ export class GameService {
     this.gameID = '';
   }
 
+  resetPlayers(): void {
+    this.players = [];
+    this.currentPlayerNumber = 0;
+    this.currentScore = 0;
+    this.currentTotScore = 0;
+  }
+
   initializeScores(): void {
-    this.players.forEach(player => {
-      player.resetScores();
-    });
-    this.currentScore = this.getCurrentScore();
-    this.currentTotScore = this.getCurrentTotScore();
-    this.scoreToDisplayChanged.next(this.getCurrentScore());
+    if (this.players.length > 0) {
+      this.players.forEach(player => {
+        player.resetScores();
+      });
+      this.currentScore = this.getCurrentScore();
+      this.currentTotScore = this.getCurrentTotScore();
+      this.scoreToDisplayChanged.next(this.getCurrentScore());
+    }
   }
 
   loadSavedGame(gameToLoad) {
      console.log(gameToLoad);
      this.resetGame();
+     this.resetPlayers();
      this.gameID = gameToLoad.data.gameID;
      gameToLoad.data.gamePlayers.forEach(player => {
-       console.log(player.playerScores);
-       console.log('currentPlayerNumber: ' + this.currentPlayerNumber);
-       console.log('this.getCurrentPlayer(): ' + this.getCurrentPlayer());
-       this.getCurrentPlayer().score = player.playerScores;
-       this.getCurrentPlayer().name = player.playerName;
-      //  this.setCurrentPlayerNumber(playerNumber++);
+      this.addNewPlayer(player.playerName);
+      this.getCurrentPlayer().score = player.playerScores;
      });
+     this.scoreToDisplayChanged.next(this.getCurrentScore());
   }
 
   setScoreCardDirty(dirtyFlag) {
