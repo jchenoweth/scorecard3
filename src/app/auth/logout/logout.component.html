@@ -1,7 +1,20 @@
-<p>
-  Logout?
-</p>
-
-<button mat-raised-button (click)="onLogout()">Logout</button>
-
-<button mat-raised-button (click)="onCancel()">Cancel</button>
+<mat-card>
+  <app-heading headingTitle='Logout'></app-heading>
+  <section
+    fxLayout="column"
+    fxLayoutAlign="center center"
+    class="container">
+    <div
+      fxLayout="row"
+      fxLayoutAlign="center center"
+      class="row"
+      fxFlex>
+      <button
+        mat-fab
+        (click)="onLogout()"
+        fxFlex="20%" >
+        Logout
+      </button>
+    </div>
+  </section>
+</mat-card>

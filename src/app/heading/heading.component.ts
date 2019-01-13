@@ -15,6 +15,6 @@ export class HeadingComponent implements OnInit {
   }
 
   goBack() {
-  this.router.navigate(['']);
+  this.router.navigate(['/']);
   }
 }

@@ -19,7 +19,7 @@ export class LogoutComponent implements OnInit {
   }
 
   onCancel() {
-
+    this.router.navigate(['/']);
   }
 
 }
