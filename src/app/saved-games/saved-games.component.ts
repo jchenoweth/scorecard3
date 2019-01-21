@@ -21,8 +21,7 @@ export class SavedGamesComponent implements OnInit {
 
   ngOnInit() {
     this.games = this.af
-      .collection('game')
-      .orderBy("createDate")
+      .collection('game', ref => ref.orderBy('createDate', 'desc').limit(100))
       .snapshotChanges()
       .pipe(map(documentArray => {
         return documentArray.map(doc => {
