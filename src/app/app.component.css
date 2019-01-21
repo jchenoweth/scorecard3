@@ -2,5 +2,12 @@
   flex: 1 1 auto;
 }
 
+html, body {
+  font-family: 'Roboto', sans-serif;
+  height: 100%;
+}
 
+body {
+  margin: 0;
+}
 

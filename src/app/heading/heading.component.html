@@ -1,7 +1,17 @@
-<div fxLayout="row"
-  fxLayoutWrap
-  fxLayoutAlign="space-between center"
-  fxLayoutGap="15px">
-  <h2 >{{headingTitle}}</h2>
-  <button mat-raised-button color="accent" (click)="goBack()"> Back </button>
+<div
+  fxLayout="row"
+  fxLayoutAlign="space-between center">
+
+  <div >
+    <h3 >{{headingTitle}}</h3>
+  </div>
+
+  <div>
+    <button
+      mat-raised-button
+      class="backButton"
+      color="accent"
+      (click)="goBack()"> Back </button>
+  </div>
+
 </div>

@@ -1,29 +1,20 @@
-<mat-card>
+<mat-card fxLayout="column" >
   <app-heading headingTitle='Course Maint'></app-heading>
-  <form #form="ngForm">
-    <mat-form-field class="example-full-width" color="accent">
-      <input
-        type="text"
-        id="courseName"
-        name="courseName"
-        maxlength="15"
-        [(ngModel)]="courseName"
-        #courseInput
-        matInput
-        placeholder="Course Name"
-      >
-    </mat-form-field>
-    <br>
-    <div *ngFor="let parForHole of holePars; let i = index">
-      <button
-        class="parButton"
-        (click)="onParClicked()"
-        color="accent"
-        fxFlexFill
-        mat-raised-button>
-          {{'Hole: '}}{{i+1}}{{' Par: '}}{{parForHole}}
-      </button>
+
+  <section class="courseCard" fxLayoutAlign="center center">
+    <form #form="ngForm" >
+      <mat-form-field color="accent">
+        <input
+          type="text"
+          id="courseName"
+          name="courseName"
+          maxlength="25"
+          [(ngModel)]="courseName"
+          #courseInput
+          matInput
+          placeholder="Course Name">
+      </mat-form-field>
       <br>
-    </div>
-  </form>
+    </form>
+  </section>
 </mat-card>

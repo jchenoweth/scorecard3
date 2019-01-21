@@ -1,4 +1,20 @@
-.parButton {
-  margin: 55px;
-  font-size: 1.5em;
+/* .section {
+  height: 100%;
+  width: 100%;
+} */
+
+.par-radio-button {
+  margin: 10px;
 }
+
+.mat-card {
+  height: 100%;
+}
+
+/* .par-selected-value {
+  margin: 15px 0;
+}
+
+.mat-form-field {
+
+} */

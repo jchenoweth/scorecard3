@@ -6,3 +6,7 @@ input {
     font-size: 2em
 }
 
+.mat-card {
+  height: 100%;
+}
+
