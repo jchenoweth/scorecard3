@@ -1,6 +1,6 @@
 import { Game } from './../shared/game.model';
 import { Observable } from 'rxjs';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Query } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 // import { ngForm } from '@angular/forms';
 import { map } from 'rxjs/operators';
@@ -22,6 +22,7 @@ export class SavedGamesComponent implements OnInit {
   ngOnInit() {
     this.games = this.af
       .collection('game')
+      .orderBy("createDate")
       .snapshotChanges()
       .pipe(map(documentArray => {
         return documentArray.map(doc => {
@@ -37,5 +38,5 @@ export class SavedGamesComponent implements OnInit {
     this.gs.loadSavedGame(game);
   }
 
-  
+
 }

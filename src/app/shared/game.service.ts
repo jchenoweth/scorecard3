@@ -72,6 +72,7 @@ export class GameService {
       });
       this.currentScore = this.getCurrentScore();
       this.currentTotScore = this.getCurrentTotScore();
+      this.setCurrentHole(1);
       this.scoreToDisplayChanged.next(this.getCurrentScore());
     }
   }
