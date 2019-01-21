@@ -33,7 +33,7 @@
       *ngIf="this.auth.isAuth()"
       mat-raised-button
       [disabled]="!gs.getScoreCardDirty() && auth.isAuth()"
-      color="accent"
+      color="primary"
       (click)="onSave()">
       Save
     </button>
