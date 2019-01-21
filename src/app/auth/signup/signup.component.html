@@ -1,7 +1,11 @@
-<section class="signup-form" class="mat-typography">
+<mat-card
+  fxLayout="column"
+  fxLayoutGap="25px"
+  class="signup-form"
+  class="mat-typography">
+  <app-heading headingTitle='Register for an account'></app-heading>
 
   <form fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="30px" #f="ngForm" (ngSubmit)="onSubmit(f)">
-    <h1 class="mat-h1">Register for an account</h1>
     <mat-form-field>
       <input type="email" matInput placeholder="Your email" ngModel name="email" email required #emailInput="ngModel">
       <mat-error *ngIf="emailInput.hasError('required')">Field must not be empty.</mat-error>
@@ -21,4 +25,4 @@
     <button *ngIf="!isLoading" type="submit" mat-raised-button color="primary" [disabled]="f.invalid">Submit</button>
     <mat-spinner *ngIf="isLoading"></mat-spinner>
   </form>
-</section>
+</mat-card>
