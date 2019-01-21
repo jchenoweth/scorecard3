@@ -27,12 +27,16 @@
     fxFlexOffset="30px">
   </app-total-score>
 
-  <button
-    *ngIf="this.auth.isAuth()"
-    mat-raised-button
-    [disabled]="!gs.getScoreCardDirty() && auth.isAuth()"
-    color="accent"
-    (click)="onSave()">
-    <span class="saveButton">Save</span>
-  </button>
+  <div fxLayout fxLayoutAlign="center">
+    <button
+      class="saveButton"
+      *ngIf="this.auth.isAuth()"
+      mat-raised-button
+      [disabled]="!gs.getScoreCardDirty() && auth.isAuth()"
+      color="accent"
+      (click)="onSave()">
+      Save
+    </button>
+  </div>
+
 </section>
