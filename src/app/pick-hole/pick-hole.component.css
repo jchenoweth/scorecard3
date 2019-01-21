@@ -3,5 +3,9 @@
 }
 
 .holeButton{
-    height:15px; 
+    height:15px;
+}
+
+.mat-card {
+  height: 100%;
 }
