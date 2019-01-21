@@ -22,7 +22,9 @@
     (decScore)="decrementScore()">
   </app-enter-score>
 
-  <app-total-score [totScore]="currentTotScore">
+  <app-total-score
+    [totScore]="currentTotScore"
+    fxFlexOffset="30px">
   </app-total-score>
 
   <button
@@ -31,6 +33,6 @@
     [disabled]="!gs.getScoreCardDirty() && auth.isAuth()"
     color="accent"
     (click)="onSave()">
-    <h1 mat-h1>Save</h1>
+    <span class="saveButton">Save</span>
   </button>
 </section>
