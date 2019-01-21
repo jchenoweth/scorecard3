@@ -5,3 +5,7 @@ mat-form-field {
 .mat-card {
   height: 100%;
 }
+
+input {
+  font-size:2em
+}
