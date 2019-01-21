@@ -1,11 +1,14 @@
-<mat-card fxLayout="column" class="mat-typography">
+<mat-card fxLayout="column" class="mat-typography" fxLayoutGap="50px">
   <app-heading headingTitle='Leaderboard'></app-heading>
 
   <mat-card-content>
-    <div fxLayout="column" fxLayoutAlign="space-between center" fxFlex>
+    <div
+      fxLayout="column"
+      fxLayoutAlign="space-between center">
       <div class="example-container mat-elevation-z8">
-
-        <mat-table #table [dataSource]= "leaderBoardDataSource">
+        <mat-table
+          #table
+          [dataSource]= "leaderBoardDataSource">
 
           <ng-container matColumnDef="player" >
             <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
