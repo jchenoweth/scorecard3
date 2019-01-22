@@ -10,7 +10,6 @@ import { Course } from '../shared/course.model';
 })
 export class CourseMaintComponent implements OnInit {
   courseName = 'This Course';
-  parOptions = [3, 4, 5];
   nbrOfHoles = [1, 2, 3, 4, 5, 6, 7, 8, 9];
   holePar: number[];
 
