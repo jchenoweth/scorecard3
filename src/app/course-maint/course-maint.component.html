@@ -18,7 +18,7 @@
       <div *ngFor="let hole of nbrOfHoles, let i=index">
         <mat-radio-group
         fxFlexLayout="column" fxFlexLayoutAlign="center center"
-        name="par"
+        name=parForHole{{i+1}}
         ngModel
         required>
         Hole {{ i+1 }} Par
@@ -27,7 +27,6 @@
         <mat-radio-button value="5" color="primary" class="par-radio-button">5</mat-radio-button>
       </mat-radio-group>
       </div>
-
     </form>
   </section>
 </mat-card>
