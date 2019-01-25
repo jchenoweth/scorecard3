@@ -29,7 +29,8 @@
             </label>
         </mat-radio-group>
       </div>
-      <div fxLayout fxLayoutAlign="center">
+      <div *ngIf="this.authServ.isAuth()"
+        fxLayout fxLayoutAlign="center">
         <button
           mat-raised-button
           class="backButton"

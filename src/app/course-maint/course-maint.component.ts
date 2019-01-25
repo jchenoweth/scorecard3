@@ -3,7 +3,7 @@ import { NgForm, FormGroup, FormControl } from '@angular/forms';
 import { CourseService } from './../shared/course.service';
 import { Component, OnInit } from '@angular/core';
 import { Course } from '../shared/course.model';
-
+import { AuthService } from '../auth/auth.service';
 @Component({
   selector: 'app-course-maint',
   templateUrl: './course-maint.component.html',
@@ -15,7 +15,7 @@ export class CourseMaintComponent implements OnInit {
   nbrOfHoles = [1, 2, 3, 4, 5, 6, 7, 8, 9];
   holePar: number[];
 
-  constructor() { }
+  constructor(public authServ: AuthService) { }
 
   ngOnInit() {
     this.courseForm = new FormGroup ({
