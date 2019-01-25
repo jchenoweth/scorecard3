@@ -4,7 +4,11 @@
 } */
 
 .par-radio-button {
-  margin: 10px;
+  margin: 20px;
+}
+
+.mat-radio-group {
+  font-size: 1.25em;
 }
 
 .mat-card {

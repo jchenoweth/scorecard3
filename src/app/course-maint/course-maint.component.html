@@ -1,15 +1,17 @@
-<mat-card fxLayout="column" class="mat-typography">
+<mat-card
+  fxLayout="column"
+  class="mat-typography">
   <app-heading headingTitle='Course Maint'></app-heading>
-
   <section class="courseCard" >
-    <form #form="ngForm" >
+    <form
+      [formGroup]="courseForm"
+      (ngSubmit)="onSubmit()">
       <mat-form-field color="primary">
         <input
           type="text"
           id="courseName"
-          name="courseName"
+          formControlName="courseName"
           maxlength="25"
-          [(ngModel)]="courseName"
           #courseInput
           matInput
           placeholder="Course Name">
@@ -17,15 +19,24 @@
       <br>
       <div *ngFor="let hole of nbrOfHoles, let i=index">
         <mat-radio-group
-        fxFlexLayout="column" fxFlexLayoutAlign="center center"
-        name=parForHole{{i+1}}
-        ngModel
-        required>
-        Hole {{ i+1 }} Par
-        <mat-radio-button value="3" color="primary" class="par-radio-button">3</mat-radio-button>
-        <mat-radio-button value="4" color="primary" class="par-radio-button">4</mat-radio-button>
-        <mat-radio-button value="5" color="primary" class="par-radio-button">5</mat-radio-button>
-      </mat-radio-group>
+          fxFlexLayout="column" fxFlexLayoutAlign="center center"
+          formControlName="parForHole{{i+1}}">
+            <label>
+              Hole {{ i+1 }} par:
+              <mat-radio-button value="3" color="primary" class="par-radio-button">3</mat-radio-button>
+              <mat-radio-button value="4" color="primary" class="par-radio-button">4</mat-radio-button>
+              <mat-radio-button value="5" color="primary" class="par-radio-button">5</mat-radio-button>
+            </label>
+        </mat-radio-group>
+      </div>
+      <div fxLayout fxLayoutAlign="center">
+        <button
+          mat-raised-button
+          class="backButton"
+          color="accent"
+          type="submit">
+          Save
+        </button>
       </div>
     </form>
   </section>
