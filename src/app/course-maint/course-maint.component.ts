@@ -46,6 +46,9 @@ export class CourseMaintComponent implements OnInit {
   }
 
   onParClicked() {
+  }
 
+  clearForm() {
+    this.courseForm.reset();
   }
 }

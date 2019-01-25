@@ -6,6 +6,14 @@
     <form
       [formGroup]="courseForm"
       (ngSubmit)="onSubmit()">
+      <div fxLayout fxLayoutAlign="start">
+        <button
+          (click)="clearForm()"
+          mat-raised-button
+          color="accent">
+          Clear Course Info
+        </button>
+      </div>
       <mat-form-field color="primary">
         <input
           type="text"
