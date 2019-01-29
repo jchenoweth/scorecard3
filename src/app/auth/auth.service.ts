@@ -6,17 +6,19 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { User } from './user.model';
 import { AuthData } from './auth-data.model';
 import { UIService } from '../shared/ui.service';
+import firebase = require('firebase');
 
 @Injectable()
 export class AuthService {
   authChange = new Subject<boolean>();
   private isAuthenticated = false;
   private userEmail = '';
+  private uid;
 
   constructor(
     private router: Router,
     private afAuth: AngularFireAuth,
-    private uiService: UIService
+    private uiService: UIService,
   ) {}
 
   // call initAuthListener() in app.component when application starts
@@ -24,6 +26,8 @@ export class AuthService {
     this.afAuth.authState.subscribe(user => {
       if (user) {
         this.isAuthenticated = true;
+        this.uid = user.uid;
+        console.log('uid: ' + this.uid);
         this.authChange.next(true);
         this.router.navigate(['/scorecard']);
       } else {
@@ -76,5 +80,9 @@ export class AuthService {
 
   getUserEmail() {
     return this.userEmail;
+  }
+
+  getUID() {
+    return this.uid;
   }
 }

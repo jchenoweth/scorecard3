@@ -1,51 +1,60 @@
-<mat-card
-  fxLayout="column"
-  class="mat-typography">
+<mat-card class="mat-typography">
   <app-heading headingTitle='Course Maint'></app-heading>
-  <section class="courseCard" >
+  <section
+    fxLayout="column"
+    fxLayoutAlign="space-around">
     <form
       [formGroup]="courseForm"
       (ngSubmit)="onSubmit()">
-      <div fxLayout fxLayoutAlign="start">
-        <button
+      <div >
+        <div fxFlex="100">
+          <mat-form-field
+            color="primary"
+            class="courseName">
+            <input
+              type="text"
+              id="courseName"
+              formControlName="courseName"
+              maxlength="30"
+              #courseInput
+              matInput
+              placeholder="Course Name">
+          </mat-form-field>
+        </div>
+      </div>
+      <div fxLayout fxLayoutAlign="space-around">
+        <div>
+          <button
           (click)="clearForm()"
           mat-raised-button
           color="accent">
-          Clear Course Info
-        </button>
+            Clear All
+          </button>
+        </div>
+        <div *ngIf="this.authServ.isAuth()"
+          fxLayout fxLayoutAlign="center">
+          <button
+            mat-raised-button
+            color="accent"
+            type="submit">
+              Save
+          </button>
+        </div>
       </div>
-      <mat-form-field color="primary">
-        <input
-          type="text"
-          id="courseName"
-          formControlName="courseName"
-          maxlength="25"
-          #courseInput
-          matInput
-          placeholder="Course Name">
-      </mat-form-field>
       <br>
-      <div *ngFor="let hole of nbrOfHoles, let i=index">
-        <mat-radio-group
-          fxFlexLayout="column" fxFlexLayoutAlign="center center"
-          formControlName="parForHole{{i+1}}">
+      <div>
+        <div *ngFor="let hole of nbrOfHoles, let i=index" fxLayout fxLayoutAlign="center">
+          <mat-radio-group
+            formControlName="parForHole{{i+1}}">
             <label>
               Hole {{ i+1 }} par:
               <mat-radio-button value="3" color="primary" class="par-radio-button">3</mat-radio-button>
               <mat-radio-button value="4" color="primary" class="par-radio-button">4</mat-radio-button>
               <mat-radio-button value="5" color="primary" class="par-radio-button">5</mat-radio-button>
             </label>
-        </mat-radio-group>
-      </div>
-      <div *ngIf="this.authServ.isAuth()"
-        fxLayout fxLayoutAlign="center">
-        <button
-          mat-raised-button
-          class="backButton"
-          color="accent"
-          type="submit">
-          Save
-        </button>
+          </mat-radio-group>
+        </div>
+
       </div>
     </form>
   </section>

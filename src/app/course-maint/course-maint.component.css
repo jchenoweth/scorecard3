@@ -1,14 +1,13 @@
-/* .section {
-  height: 100%;
-  width: 100%;
-} */
+.courseMaint {
+  width: 100%
+}
 
 .par-radio-button {
-  margin: 20px;
+  margin: 15px;
 }
 
 .mat-radio-group {
-  font-size: 1.25em;
+  font-size: 1.2em;
 }
 
 .mat-card {
@@ -16,5 +15,10 @@
 }
 
 input {
-  font-size:2em
+  font-size: 1.25em;
 }
+
+.courseName {
+  width: 100%;
+}
+

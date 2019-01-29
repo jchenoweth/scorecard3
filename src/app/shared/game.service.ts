@@ -233,9 +233,9 @@ export class GameService {
   addNewGameIDToDatabase() {
     const gamesCollection = this.af2.collection<Game>('game');
       gamesCollection.add({
+        userID: this.gameAuth.getUID(),
         outingID: 'test outing',
         createDate: new Date(),
-        userID: this.gameAuth.getUserEmail(),
         gamePlayers: this.getScoreInfo(),
         gameID: '' })
       .then(docRef => {
@@ -258,7 +258,7 @@ export class GameService {
       this.uiService.showSnackbar('Game Updated', null, 5000);
     })
     .catch(error => {
-      console.log('Error updating player scores on Game:' + error );
+      console.log('Error updating player scores on Game: ' + error );
       this.uiService.showSnackbar(error.message, null, 5000);
     });
   }

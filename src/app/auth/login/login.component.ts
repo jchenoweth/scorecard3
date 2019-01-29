@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs';
 
 import { AuthService } from '../auth.service';
 import { UIService } from '../../shared/ui.service';
+// import { userInfo } from 'os';
 
 @Component({
   selector: 'app-login',
@@ -36,14 +37,13 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
-    console.log(this.loginForm.value.email);
-    console.log(this.loginForm.value.password);
+    // console.log(this.loginForm.value.email);
+    // console.log(this.loginForm.value.password);
 
     this.authService.login({
       email: this.loginForm.value.email,
       password: this.loginForm.value.password
     });
-    //this.afs.collection('scorecard/${scoreCardID}').add('testid: test1');
   }
 
   ngOnDestroy() {
