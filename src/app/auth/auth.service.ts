@@ -6,7 +6,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { User } from './user.model';
 import { AuthData } from './auth-data.model';
 import { UIService } from '../shared/ui.service';
-import firebase = require('firebase');
+// import firebase = require('firebase');
 
 @Injectable()
 export class AuthService {
