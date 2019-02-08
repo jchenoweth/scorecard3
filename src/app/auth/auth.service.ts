@@ -1,3 +1,4 @@
+import { AngularFirestoreDocument, AngularFirestore } from '@angular/fire/firestore';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
@@ -19,6 +20,7 @@ export class AuthService {
     private router: Router,
     private afAuth: AngularFireAuth,
     private uiService: UIService,
+    private afs: AngularFirestore
   ) {}
 
   // call initAuthListener() in app.component when application starts
@@ -44,6 +46,13 @@ export class AuthService {
     this.afAuth.auth
       .createUserWithEmailAndPassword(authData.email, authData.password)
       .then(result => {
+        const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${result.user.uid}`);
+        const userData = {
+          uid: result.user.uid,
+          email: result.user.email,
+          shortName: ''
+        };
+        userRef.set(userData);
         this.userEmail = authData.email;
         this.uiService.loadingStateChanged.next(false);
         this.uiService.showSnackbar('New Account Created', null, 5000);
