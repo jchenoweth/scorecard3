@@ -40,6 +40,7 @@ import { GameService } from './shared/game.service';
 import { AuthService } from './auth/auth.service';
 import { ScoreChangeNotificationService } from './shared/scorechangenotification.service';
 import { TermsComponent } from './terms/terms.component';
+import { PasscodesComponent } from './passcodes/passcodes.component';
 
 const routes: Routes = [
   { path: '', component: ScoreCardComponent, pathMatch: 'full' },
@@ -49,6 +50,7 @@ const routes: Routes = [
   { path: 'gamemaint', component: GameMaintComponent},
   { path: 'leaderboard', component: LeaderBoardComponent},
   { path: 'holedesc', component: HoleDescComponent},
+  { path: 'enterpasscode', component: PasscodesComponent},
   { path: 'signup', component: SignupComponent},
   { path: 'login', component: LoginComponent},
   { path: 'logout', component: LogoutComponent},
@@ -76,7 +78,8 @@ const routes: Routes = [
     SignupComponent,
     LoginComponent,
     LogoutComponent,
-    TermsComponent
+    TermsComponent,
+    PasscodesComponent
   ],
   imports: [
     BrowserModule,

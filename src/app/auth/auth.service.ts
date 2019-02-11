@@ -14,7 +14,8 @@ export class AuthService {
   authChange = new Subject<boolean>();
   private isAuthenticated = false;
   private userEmail = '';
-  private uid;
+  private shortName = '';
+  private uid = '';
 
   constructor(
     private router: Router,
@@ -41,7 +42,7 @@ export class AuthService {
     });
   }
 
-  registerUser(authData: AuthData) {
+  registerUser(authData: User) {
     this.uiService.loadingStateChanged.next(true);
     this.afAuth.auth
       .createUserWithEmailAndPassword(authData.email, authData.password)
@@ -50,10 +51,11 @@ export class AuthService {
         const userData = {
           uid: result.user.uid,
           email: result.user.email,
-          shortName: ''
+          shortName: authData.shortName
         };
         userRef.set(userData);
         this.userEmail = authData.email;
+        this.shortName = authData.shortName;
         this.uiService.loadingStateChanged.next(false);
         this.uiService.showSnackbar('New Account Created', null, 5000);
       })
@@ -69,6 +71,7 @@ export class AuthService {
       .signInWithEmailAndPassword(authData.email, authData.password)
       .then(result => {
         this.userEmail = authData.email;
+        this.uid = result.user.uid;
         this.uiService.loadingStateChanged.next(false);
         this.uiService.showSnackbar('Login Successful', null, 5000);
       })
@@ -80,6 +83,7 @@ export class AuthService {
 
   logout() {
     this.afAuth.auth.signOut();
+    this.uid = '';
     this.uiService.showSnackbar('Logged Out', null, 5000);
   }
 
@@ -89,6 +93,10 @@ export class AuthService {
 
   getUserEmail() {
     return this.userEmail;
+  }
+
+  getUserShortName() {
+    return this.shortName;
   }
 
   getUID() {

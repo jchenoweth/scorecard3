@@ -4,7 +4,7 @@ export class Player {
   public score: number[];
   private currentScoreDisplayed = 0;
 
-  constructor(public name: string) {
+  constructor(public name: string, private playerUID: string) {
     this.resetScores();
   }
 
@@ -60,6 +60,14 @@ export class Player {
 
   getPlayerScores(): number[] {
     return this.score;
+  }
+
+  getPlayerUID(): string {
+    return this.playerUID;
+  }
+
+  setPlayerUID(playerUID: string) {
+    this.playerUID = playerUID;
   }
 
 }

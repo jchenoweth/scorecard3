@@ -50,7 +50,7 @@ export class PlayerMaintComponent implements OnInit {
   onAdd(player: string, playerInput: HTMLInputElement) {
     if (player.length > 0) {
       const newPlayer = player.substring(0, 5);
-      this.gs.addNewPlayer(newPlayer);
+      this.gs.addNewPlayer(newPlayer, '');
       playerInput.value = '';
       this.editMode = false;
       playerInput.focus();

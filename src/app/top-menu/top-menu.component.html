@@ -27,6 +27,11 @@
       <span>Game Maintenance</span>
     </button>
     <button *ngIf="this.authServ.isAuth()"
+      mat-menu-item routerLink="enterpasscode">
+      <mat-icon>input</mat-icon>
+      <span>Join Game</span>
+    </button>
+    <button *ngIf="this.authServ.isAuth()"
       mat-menu-item routerLink="savedgames">
       <mat-icon>redo</mat-icon>
       <span>Display Saved Games</span>

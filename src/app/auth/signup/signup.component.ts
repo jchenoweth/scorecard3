@@ -12,6 +12,7 @@ import { UIService } from '../../shared/ui.service';
 })
 export class SignupComponent implements OnInit, OnDestroy {
   // maxDate;
+  shortName = '';
   isLoading = false;
   private loadingSubs: Subscription;
 
@@ -30,7 +31,8 @@ export class SignupComponent implements OnInit, OnDestroy {
   onSubmit(form: NgForm) {
     this.authService.registerUser({
       email: form.value.email,
-      password: form.value.password
+      password: form.value.password,
+      shortName: form.value.shortName
     });
   }
 

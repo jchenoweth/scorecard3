@@ -26,6 +26,7 @@ export class GameService {
   private currentPlayer: Player;
   private currentTotScore: number;
   private players: Player[] = [];
+  private playerUID = '';
   private currentCourse: Course;
   private scoreCardID: string;
   // private isScoreCardDirty: boolean;
@@ -44,7 +45,9 @@ export class GameService {
   }
 
   initializeGame(): void {
-    this.addNewPlayer('Me');
+    this.playerUID = this.gameAuth.getUID();
+    this.addNewPlayer('Me', this.playerUID);
+    console.log('initializeGame(): ' + this.playerUID);
     this.resetGame();
   }
 
@@ -83,7 +86,7 @@ export class GameService {
      this.resetPlayers();
      this.gameID = gameToLoad.data.gameID;
      gameToLoad.data.gamePlayers.forEach(player => {
-      this.addNewPlayer(player.playerName);
+      this.addNewPlayer(player.playerName, player.playerUID);
       this.getCurrentPlayer().score = player.playerScores;
      });
      this.scoreToDisplayChanged.next(this.getCurrentScore());
@@ -172,9 +175,9 @@ export class GameService {
     this.setDirtyScoreCard(true);
     }
 
-  addNewPlayer(name: string) {
+  addNewPlayer(name: string, playerUID: string) {
     this.setCurrentPlayerNumber(this.players.length);
-    this.players[this.getCurrentPlayerNbr()] = new Player(name);
+    this.players[this.getCurrentPlayerNbr()] = new Player(name, playerUID);
     this.setCurrentPlayer(this.players[this.getCurrentPlayerNbr()]);
     this.playerToDisplayChanged.next(this.getCurrentPlayerNbr());
     this.scoreToDisplayChanged.next(this.getCurrentScore());
@@ -236,11 +239,13 @@ export class GameService {
         userID: this.gameAuth.getUID(),
         outingID: 'test outing',
         createDate: new Date(),
-        gamePlayers: this.getScoreInfo(),
+        gamePlayers: this.getScoreInfo(this.gameAuth.getUID()),
         gameID: '' })
       .then(docRef => {
         this.gameID = docRef.id;
         console.log('addNewGameIDToDatabase():this.gameID: ' + this.gameID);
+        const userRef: AngularFirestoreDocument<any> = this.af2.doc(`game/${this.gameID}`);
+        userRef.update({gameID: this.gameID});
         // this.updatePlayerScoresOnGame(this.gameID);
       })
       .catch(error => {
@@ -252,7 +257,7 @@ export class GameService {
   updatePlayerScoresOnGame(newGameID) {
     const gameDocRef = this.af2.collection<Game>('game').doc(newGameID);
     gameDocRef.update({
-      gamePlayers: this.getScoreInfo(),
+      gamePlayers: this.getScoreInfo(this.gameAuth.getUID()),
       gameID: newGameID})
     .then(() => {
       this.uiService.showSnackbar('Game Updated', null, 5000);
@@ -266,17 +271,20 @@ export class GameService {
   saveScoreCard() {
     if (this.gameID === '') {
       this.addNewGameIDToDatabase();
+      console.log('saveScoreCard: after addNewGameIDToDatabase()');
     } else {
       this.updatePlayerScoresOnGame(this.gameID);
+      console.log('saveScoreCard: after updatePlayerScoresOnGame()');
     }
   }
 
-  getScoreInfo(): Scores[] {
+  getScoreInfo(UID: string): Scores[] {
     const scoreArray: Scores[] = [];
-    this.getPlayers().forEach( (player, playerNbr) => {
+    this.getPlayers().forEach( (player) => {
       scoreArray.push( {
         playerName: player.name,
-        playerScores: player.getPlayerScores()
+        playerScores: player.getPlayerScores(),
+        playerUID: UID
       });
     });
     return scoreArray;
