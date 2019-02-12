@@ -1,3 +1,16 @@
-<p>
-  passcodes works!
-</p>
+<mat-card class="mat-typography" fxLayout="column" fxLayoutGap="20px">
+  <app-heading headingTitle='Join Game'></app-heading>
+  <form  >
+    <div fxLayout="row" fxLayoutAlign="space-between center" class="mat-typography">
+      <mat-form-field>
+        <input
+          class="subheading-2"
+          maxlength="6"
+          type="text"
+          matInput
+          placeholder="Enter passcode" >
+      </mat-form-field>
+      <button mat-raised-button color="primary">Join</button>
+    </div>
+  </form>
+</mat-card>
