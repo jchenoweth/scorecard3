@@ -21,5 +21,12 @@
       (click)="onLoadSaveGames()">
       Load Saved Games
     </button>
+    <button
+    *ngIf="authServ.isAuth()"
+      mat-raised-button
+      color="primary"
+      (click)="onCreatePasscode()">
+      Create Passcode
+    </button>
   </div>
 </mat-card>

@@ -1,3 +1,4 @@
+import { GameService } from './../../shared/game.service';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
@@ -21,7 +22,8 @@ export class LoginComponent implements OnInit, OnDestroy {
   constructor(
     private authService: AuthService,
     private afs: AngularFirestore,
-    private uiService: UIService) {}
+    private uiService: UIService,
+    private gs: GameService) {}
 
   ngOnInit() {
     this.loadingSubs = this.uiService.loadingStateChanged
@@ -44,6 +46,9 @@ export class LoginComponent implements OnInit, OnDestroy {
       email: this.loginForm.value.email,
       password: this.loginForm.value.password
     });
+    // console.log('before saveScoreCard ');
+    // this.gs.saveScoreCard();
+    // console.log('after saveScoreCard ');
   }
 
   ngOnDestroy() {

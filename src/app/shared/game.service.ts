@@ -100,6 +100,10 @@ export class GameService {
     return this.isScoreCardDirty;
   }
 
+  getGameID() {
+    return this.gameID;
+  }
+
   resetGameID() {
     this.setDirtyScoreCard(false);
     this.gameID = '';
@@ -246,7 +250,6 @@ export class GameService {
         console.log('addNewGameIDToDatabase():this.gameID: ' + this.gameID);
         const userRef: AngularFirestoreDocument<any> = this.af2.doc(`game/${this.gameID}`);
         userRef.update({gameID: this.gameID});
-        // this.updatePlayerScoresOnGame(this.gameID);
       })
       .catch(error => {
         console.log('gamesCollection.add: error' + error );
@@ -271,10 +274,8 @@ export class GameService {
   saveScoreCard() {
     if (this.gameID === '') {
       this.addNewGameIDToDatabase();
-      console.log('saveScoreCard: after addNewGameIDToDatabase()');
     } else {
       this.updatePlayerScoresOnGame(this.gameID);
-      console.log('saveScoreCard: after updatePlayerScoresOnGame()');
     }
   }
 

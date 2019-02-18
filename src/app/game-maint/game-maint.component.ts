@@ -34,4 +34,8 @@ export class GameMaintComponent {
   onLoadSaveGames() {
     this.router.navigate(['/savedgames']);
   }
+
+  onCreatePasscode() {
+    this.router.navigate(['/createpasscode']);
+  }
 }

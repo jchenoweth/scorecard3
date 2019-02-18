@@ -1,3 +1,4 @@
+import { GameService } from './../shared/game.service';
 import { AngularFirestoreDocument, AngularFirestore } from '@angular/fire/firestore';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
@@ -21,8 +22,7 @@ export class AuthService {
     private router: Router,
     private afAuth: AngularFireAuth,
     private uiService: UIService,
-    private afs: AngularFirestore
-  ) {}
+    private afs: AngularFirestore ) {}
 
   // call initAuthListener() in app.component when application starts
   initAuthListener() {
@@ -79,6 +79,7 @@ export class AuthService {
         this.uiService.loadingStateChanged.next(false);
         this.uiService.showSnackbar(error.message, null, 5000);
       });
+    console.log('right before returning from login');
   }
 
   logout() {

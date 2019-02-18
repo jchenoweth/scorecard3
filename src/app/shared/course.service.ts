@@ -9,11 +9,11 @@ export class CourseService {
 
   addNewCourse(course: Course) {
     this.currentCourse = course;
-  };
+  }
 
   getCourse(): Course {
     return this.currentCourse;
-  };
+  }
 
   getCurrentHoleDescription(hole: number) {
     return this.currentCourse.holeDescription[ hole - 1 ];

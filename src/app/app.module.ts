@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
 import { RouterModule, Routes } from '@angular/router';
-import { HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MaterialModule } from './shared/material/material.module';
@@ -41,6 +41,7 @@ import { AuthService } from './auth/auth.service';
 import { ScoreChangeNotificationService } from './shared/scorechangenotification.service';
 import { TermsComponent } from './terms/terms.component';
 import { PasscodesComponent } from './passcodes/passcodes.component';
+import { PasscodemaintComponent } from './game-maint/passcodemaint/passcodemaint.component';
 
 const routes: Routes = [
   { path: '', component: ScoreCardComponent, pathMatch: 'full' },
@@ -50,6 +51,7 @@ const routes: Routes = [
   { path: 'gamemaint', component: GameMaintComponent},
   { path: 'leaderboard', component: LeaderBoardComponent},
   { path: 'holedesc', component: HoleDescComponent},
+  { path: 'createpasscode', component: PasscodemaintComponent},
   { path: 'enterpasscode', component: PasscodesComponent},
   { path: 'signup', component: SignupComponent},
   { path: 'login', component: LoginComponent},
@@ -79,7 +81,8 @@ const routes: Routes = [
     LoginComponent,
     LogoutComponent,
     TermsComponent,
-    PasscodesComponent
+    PasscodesComponent,
+    PasscodemaintComponent
   ],
   imports: [
     BrowserModule,
@@ -87,7 +90,7 @@ const routes: Routes = [
     FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    HttpModule,
+    HttpClientModule,
     RouterModule.forRoot(routes),
     FlexLayoutModule,
     MaterialModule,

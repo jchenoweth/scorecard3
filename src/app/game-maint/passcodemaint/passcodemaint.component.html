@@ -1,0 +1,22 @@
+<mat-card class="mat-typography" fxLayout="column" fxLayoutGap="20px">
+  <app-heading headingTitle='Create Passcode'></app-heading>
+  <form  >
+    <div fxLayout="row" fxLayoutAlign="space-between center" class="mat-typography">
+      <mat-form-field>
+        <input
+          [(ngModel)]="passcode"
+          name="enterPasscode"
+          class="subheading-2"
+          maxlength="6"
+          type="text"
+          matInput
+          placeholder="Enter new passcode" >
+      </mat-form-field>
+      <button
+        mat-raised-button
+        [disabled]="passcode==''"
+        (click)="onPasscodeSave()"
+        color="primary">Save</button>
+    </div>
+  </form>
+</mat-card>

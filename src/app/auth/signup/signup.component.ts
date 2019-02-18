@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 
 import { AuthService } from '../auth.service';
 import { UIService } from '../../shared/ui.service';
+import { GameService } from '../../shared/game.service';
 
 @Component({
   selector: 'app-signup',
@@ -17,7 +18,8 @@ export class SignupComponent implements OnInit, OnDestroy {
   private loadingSubs: Subscription;
 
   constructor(private authService: AuthService,
-    private uiService: UIService) { }
+              private uiService: UIService,
+              private gs: GameService) { }
 
   ngOnInit() {
     this.loadingSubs = this.uiService.loadingStateChanged
@@ -35,6 +37,7 @@ export class SignupComponent implements OnInit, OnDestroy {
       shortName: form.value.shortName,
       userId: ''
     });
+    this.gs.saveScoreCard();
   }
 
   ngOnDestroy() {
@@ -42,6 +45,5 @@ export class SignupComponent implements OnInit, OnDestroy {
       this.loadingSubs.unsubscribe();
     }
   }
-
   openTCDialogue() {}
 }
