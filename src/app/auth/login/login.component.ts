@@ -6,7 +6,6 @@ import { Subscription } from 'rxjs';
 
 import { AuthService } from '../auth.service';
 import { UIService } from '../../shared/ui.service';
-// import { userInfo } from 'os';
 
 @Component({
   selector: 'app-login',
@@ -21,9 +20,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   constructor(
     private authService: AuthService,
-    private afs: AngularFirestore,
-    private uiService: UIService,
-    private gs: GameService) {}
+    private uiService: UIService) {}
 
   ngOnInit() {
     this.loadingSubs = this.uiService.loadingStateChanged
@@ -39,16 +36,10 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
-    // console.log(this.loginForm.value.email);
-    // console.log(this.loginForm.value.password);
-
     this.authService.login({
       email: this.loginForm.value.email,
       password: this.loginForm.value.password
     });
-    // console.log('before saveScoreCard ');
-    // this.gs.saveScoreCard();
-    // console.log('after saveScoreCard ');
   }
 
   ngOnDestroy() {

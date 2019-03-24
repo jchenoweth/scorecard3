@@ -1,7 +1,7 @@
 import { auth } from 'firebase';
 import { AuthService } from './../auth/auth.service';
 import { Injectable } from '@angular/core';
-import { AngularFirestore, AngularFirestoreDocument  } from '@angular/fire/firestore';
+import { AngularFirestore, AngularFirestoreDocument, AngularFirestoreCollection  } from '@angular/fire/firestore';
 
 import { BehaviorSubject ,  Observable ,  Subject } from 'rxjs';
 import { Game } from './game.model';
@@ -26,7 +26,7 @@ export class GameService {
   private currentPlayer: Player;
   private currentTotScore: number;
   private players: Player[] = [];
-  private playerUID = '';
+  private playerUID = null;
   private currentCourse: Course;
   private scoreCardID: string;
   // private isScoreCardDirty: boolean;
@@ -257,9 +257,17 @@ export class GameService {
       });
   }
 
-  updatePlayerScoresOnGame(newGameID) {
+  updatePlayerScoresOnGame(newGameID: string) {
     const gameDocRef = this.af2.collection<Game>('game').doc(newGameID);
-    gameDocRef.update({
+    const gamePlayersCollRef = gameDocRef.collection<any>('players');
+    this.savePlayerScoresOnDoc( gameDocRef, newGameID );
+    this.savePlayerScoresOnColl( gamePlayersCollRef,
+      newGameID, this.gameAuth.getUID() );
+  }
+
+  savePlayerScoresOnDoc(docRef: AngularFirestoreDocument,
+    newGameID: string ) {
+    docRef.update({
       gamePlayers: this.getScoreInfo(this.gameAuth.getUID()),
       gameID: newGameID})
     .then(() => {
@@ -268,6 +276,19 @@ export class GameService {
     .catch(error => {
       console.log('Error updating player scores on Game: ' + error );
       this.uiService.showSnackbar(error.message, null, 5000);
+    });
+  }
+
+  savePlayerScoresOnColl(collRef: AngularFirestoreCollection,
+    newGameID: string, UID: string ) {
+    this.getPlayers().forEach( (player) => {
+      collRef.doc(newGameID).set({
+        playerName: player.name,
+        playerScores: player.getPlayerScores(),
+        playerUID: UID
+      });
+      console.log('savePlayerScoresOnColl:',player.name,player.getPlayerScores(),UID);
+      console.log('players:',player);
     });
   }
 
